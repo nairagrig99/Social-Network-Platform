@@ -3,25 +3,25 @@
 
     <div class="login_section">
       <header>
-        <h1>Login</h1>
+        <h1>SIGN IN </h1>
       </header>
 
       <app-input
-        [label]="'Login'"
+        [placeholder]="'Login'"
         [formControl]="loginControl"
       >
       </app-input>
       <app-input
-        [label]="'Password'"
+        [placeholder]="'Password'"
         [formControl]="passwordControl"
       >
       </app-input>
       <div class="login_section_registration">
-        <a [routerLink]="'/auth/registration'">Registration</a>
+        <a [routerLink]="'/auth/registration'">sign up</a>
       </div>
 
       <app-button
-        [label]="'Login'"
+        [label]="'Sign In'"
         [disabled]="false"
         (buttonClick)="loginUser()"
       ></app-button>

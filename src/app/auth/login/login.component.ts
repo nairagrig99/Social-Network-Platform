@@ -17,11 +17,11 @@ export class LoginComponent implements OnInit {
     this.loginForm = this.initForm();
   }
 
-  get loginControl() {
+  public get loginControl(): FormControl {
     return this.loginForm.get('login') as FormControl;
   }
 
-  get passwordControl() {
+  public get passwordControl(): FormControl {
     return this.loginForm.get('password') as FormControl;
   }
 
