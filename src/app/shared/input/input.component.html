@@ -1,0 +1,12 @@
+<div class="custom-field">
+  <div class="custom-field_label-block">
+    @if (label) {
+      <label class="custom-field_label">{{ label }}</label>
+    }
+  </div>
+  <input class="custom-field_input"
+         type="text"
+         [(ngModel)]="model"
+         (ngModelChange)="onModelChange()"
+  >
+</div>

@@ -1,0 +1,28 @@
+.custom-field {
+  max-width: 400px;
+  margin: 0 auto;
+  font-family: cursive;
+  color: white;
+
+  &_label-block{
+    margin-bottom: 12px;
+  }
+
+  &_input {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #F3EAD2;
+    outline: none;
+  }
+
+  @media (max-width: 600px) {
+    max-width: 300px;
+    &_input {
+      font-size: 14px;
+    }
+  }
+}
+

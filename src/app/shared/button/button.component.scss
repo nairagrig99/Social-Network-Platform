@@ -1,0 +1,17 @@
+@import "../../shared/style/all";
+
+.custom_button {
+  text-align: center;
+
+  button {
+    padding: 15px 40px;
+    border-radius: 5px;
+    border: none;
+    background-color: #d49139;
+  }
+
+  &_text {
+    color: $title-color;
+    font-size: 17px;
+  }
+}

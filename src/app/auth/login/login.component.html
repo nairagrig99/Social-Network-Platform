@@ -1,0 +1,34 @@
+<section>
+  <div class="login">
+
+    <div class="login_section">
+      <header>
+        <h1>Login</h1>
+      </header>
+
+      <app-input
+        [label]="'Login'"
+        [formControl]="loginControl"
+      >
+      </app-input>
+      <app-input
+        [label]="'Password'"
+        [formControl]="passwordControl"
+      >
+      </app-input>
+      <div class="login_section_registration">
+        <a [routerLink]="'/auth/registration'">Registration</a>
+      </div>
+
+      <app-button
+        [label]="'Login'"
+        [disabled]="false"
+        (buttonClick)="loginUser()"
+      ></app-button>
+    </div>
+
+  </div>
+</section>
+
+
+

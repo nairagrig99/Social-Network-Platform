@@ -1,0 +1,23 @@
+@mixin flex-row {
+  display: flex;
+}
+
+@mixin flex-gap {
+  @include flex-row;
+  gap: 45px;
+}
+
+@mixin flex-row-column {
+  @include flex-row;
+  flex-direction: column;
+}
+
+@mixin flex-row-column-justify($position) {
+  @include flex-row-column;
+  justify-content: $position;
+}
+
+@mixin flex-row-justify($position) {
+  @include flex-row;
+  justify-content: $position;
+}
