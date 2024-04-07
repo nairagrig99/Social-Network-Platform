@@ -18,15 +18,6 @@ export class RegistrationComponent implements OnInit {
   ngOnInit(): void {
     this.registerForm = this.initForm();
   }
-
-  public get nameControl(): FormControl {
-    return this.registerForm.get('name') as FormControl;
-  }
-
-  public get passwordControl(): FormControl {
-    return this.registerForm.get('password') as FormControl;
-  }
-
   private initForm(): FormGroup {
     return this.formBuilder.group({
       name: [null, [Validators.required]],
@@ -42,7 +33,6 @@ export class RegistrationComponent implements OnInit {
 
   public loginUser() {
     console.log('form', this.registerForm.value);
-    console.log('register chnages')
   }
 
   public control(controlName: string): FormControl {
