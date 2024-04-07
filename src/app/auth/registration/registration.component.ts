@@ -42,6 +42,7 @@ export class RegistrationComponent implements OnInit {
 
   public loginUser() {
     console.log('form', this.registerForm.value);
+    console.log('register chnages')
   }
 
   public control(controlName: string): FormControl {
