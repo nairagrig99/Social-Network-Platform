@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
+import {FormControlService} from "@app/shared/services/form-control.service";
 
 @Component({
   selector: 'app-login',
@@ -10,19 +11,16 @@ export class LoginComponent implements OnInit {
 
   public loginForm!: FormGroup;
 
-  constructor(private formBuilder: FormBuilder) {
+  constructor(private formBuilder: FormBuilder,
+              private formControlService: FormControlService) {
   }
 
   ngOnInit(): void {
     this.loginForm = this.initForm();
   }
 
-  public get loginControl(): FormControl {
-    return this.loginForm.get('login') as FormControl;
-  }
-
-  public get passwordControl(): FormControl {
-    return this.loginForm.get('password') as FormControl;
+  public control(controlName: string): FormControl {
+    return this.formControlService.control(this.loginForm, controlName);
   }
 
   private initForm(): FormGroup {
