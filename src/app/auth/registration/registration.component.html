@@ -1,1 +1,65 @@
-<p>registration works!</p>
+<section>
+  <div class="register">
+
+    <div class="register_section">
+      <header>
+        <h1>SIGN UP</h1>
+      </header>
+      <div class="register_section_grid">
+        <app-input
+          [placeholder]="'Name'"
+          [formControl]="control('name')"
+        >
+        </app-input>
+        <app-input
+          [placeholder]="'Surname'"
+          [formControl]="control('surname')"
+        >
+        </app-input>
+        <app-input
+          [placeholder]="'Birth Of Date'"
+          [formControl]="control('birthOfDate')"
+        >
+        </app-input>
+        <app-input
+          [placeholder]="'Gender'"
+          [formControl]="control('gender')"
+        >
+        </app-input>
+        <app-input
+          [placeholder]="'Country'"
+          [formControl]="control('country')"
+        >
+        </app-input>
+        <app-input
+          [placeholder]="'Email'"
+          [formControl]="control('email')"
+        >
+        </app-input>
+        <app-input
+          [placeholder]="'Password'"
+          [formControl]="control('password')"
+        >
+        </app-input>
+        <app-input
+          [placeholder]="'Re Password'"
+          [formControl]="control('rePassword')"
+        >
+        </app-input>
+      </div>
+      <div class="register_login">
+        <a [routerLink]="'/auth/login'">sign in</a>
+      </div>
+      <app-button
+        [label]="'Sign Up'"
+        [disabled]="false"
+        (buttonClick)="loginUser()"
+      ></app-button>
+    </div>
+
+  </div>
+</section>
+
+
+
+

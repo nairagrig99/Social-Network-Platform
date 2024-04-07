@@ -1,0 +1,60 @@
+@import "../../shared/style/_all";
+
+section {
+  .register {
+    @include flex-row-justify(center);
+    width: 100%;
+    height: 100vh;
+    flex-direction: row;
+    align-items: center;
+
+    &_section {
+      @include flex-row-column-justify(center);
+      box-shadow: -1px 4px 10px 10px #a08766;
+      width: 600px;
+      padding: 15px 25px 15px 0;
+      height: fit-content;
+
+      &_grid {
+        display: grid;
+        grid-template-columns: 250px 250px;
+        justify-content: space-around;
+        gap: 10px;
+      }
+
+      header {
+        color: $title-color;
+        text-align: center;
+        font-size: 27px;
+        font-family: cursive;
+      }
+    }
+
+    &_login {
+      text-align: right;
+
+      a {
+        color: $title-color;
+        font-size: 20px;
+        font-family: cursive;
+      }
+    }
+  }
+
+  @media screen and (max-width: $breakpoint-sm) {
+    .register_section {
+      width: 450px;
+
+      header {
+        font-size: 19px;
+      }
+
+      &_grid {
+        grid-template-columns: 400px;
+        gap: 5px;
+      }
+    }
+  }
+}
+
+

@@ -1,12 +1,11 @@
+@import "../style/variable";
+
 .custom-field {
   max-width: 400px;
   margin: 0 auto;
   font-family: cursive;
   color: white;
 
-  &_label-block{
-    margin-bottom: 12px;
-  }
 
   &_input {
     width: 100%;
@@ -16,13 +15,11 @@
     border-radius: 5px;
     background-color: #F3EAD2;
     outline: none;
+    //margin-bottom: 10px;
   }
 
-  @media (max-width: 600px) {
+  @media (max-width: $breakpoint-sm) {
     max-width: 300px;
-    &_input {
-      font-size: 14px;
-    }
   }
 }
 
