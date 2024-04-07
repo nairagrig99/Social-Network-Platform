@@ -1,0 +1,37 @@
+@import "../../shared/style/all";
+
+section {
+  .login {
+    @include flex-row-justify(center);
+    width: 100%;
+    height: 100vh;
+    flex-direction: row;
+    align-items: center;
+
+    &_section {
+      @include flex-row-column-justify(center);
+      @include flex-gap;
+      box-shadow: -1px 4px 10px 10px #a08766;
+      width: 437px;
+      padding: 15px 25px 15px 0;
+      height: fit-content;
+
+      header {
+        color: $title-color;
+        text-align: center;
+        font-size: 44px;
+        font-family: cursive;
+      }
+
+      &_registration {
+        text-align: right;
+
+        a {
+          color: $title-color;
+          font-size: 20px;
+          font-family: cursive;
+        }
+      }
+    }
+  }
+}
