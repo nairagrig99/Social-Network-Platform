@@ -1,0 +1,16 @@
+<div class="input-calendar">
+  <div class="input-calendar-block">
+    <input type="text">
+    <div class="input-calendar-block-svg" (click)="toggleCalendarWindow()">
+      <img ngSrc="../../../assets/svg/calendar.svg" fill>
+    </div>
+  </div>
+
+  <div class="input-calendar_window">
+    <div [@toggleCalendar]="calendarState$ | async">
+      <app-input-calendar-window>
+
+      </app-input-calendar-window>
+    </div>
+  </div>
+</div>

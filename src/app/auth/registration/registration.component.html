@@ -18,11 +18,9 @@
           [error]="registerForm.getError('invalidSurName')"
         >
         </app-input>
-        <app-input
-          [placeholder]="'Birth Of Date'"
-          [formControl]="control('birthOfDate')"
-        >
-        </app-input>
+
+        <app-input-calendar></app-input-calendar>
+
         <app-input
           [placeholder]="'Gender'"
           [formControl]="control('gender')"

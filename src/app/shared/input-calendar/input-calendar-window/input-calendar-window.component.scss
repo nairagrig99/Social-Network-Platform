@@ -1,0 +1,13 @@
+@import "../../style/all";
+
+.calendar-window {
+  &__wrapper {
+
+    &_weeks {
+      @include flex-row;
+      gap: 15px;
+      text-align: center;
+
+    }
+  }
+}

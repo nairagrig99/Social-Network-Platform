@@ -23,6 +23,7 @@ export function customAuthValidator(group: FormGroup): ValidationErrors | null {
   if (!regExp.test(name)) {
     return {invalidUserName: 'user name is not correct'};
   }
+
   if (!regExp.test(surname)) {
     return {invalidSurName: 'surname is not correct'};
   }
