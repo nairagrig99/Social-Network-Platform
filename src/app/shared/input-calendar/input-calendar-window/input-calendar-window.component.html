@@ -1,0 +1,25 @@
+<div class="calendar-window">
+
+  <div class="calendar-window__wrapper">
+    <div class="calendar-window__wrapper_years">
+      2029
+    </div>
+    <div class="calendar-window__wrapper_weeks">
+      @for (calendar of calendar | async; track calendar) {
+        @for (keyValue of calendar | keyvalue; track keyValue) {
+          <div>
+            <div class="calendar-window__wrapper_weeks_day">{{ keyValue.key }}</div>
+
+            <div class="calendar-window__wrapper_days">
+              @for (val of keyValue.value; track val) {
+                <p>{{ val }}</p>
+              }
+            </div>
+          </div>
+        }
+      }
+    </div>
+
+
+  </div>
+</div>

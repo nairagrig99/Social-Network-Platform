@@ -1,0 +1,23 @@
+@import "../../style/all";
+
+.input-calendar {
+  &-block {
+    position: relative;
+
+    input {
+      @include input;
+    }
+
+    &-svg {
+      position: absolute;
+      width: 8%;
+      height: 100%;
+      top: 0;
+      right: 0;
+    }
+  }
+
+  &_window {
+    position: relative;
+  }
+}

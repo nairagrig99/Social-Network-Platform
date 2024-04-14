@@ -1,21 +1,36 @@
-@import "../style/variable";
+@import "../style/all";
 
 .custom-field {
   max-width: 400px;
   margin: 0 auto;
   font-family: cursive;
   color: white;
-
+  position: relative;
 
   &_input {
-    width: 100%;
-    padding: 10px;
-    font-size: 16px;
-    border: 1px solid #ccc;
+    @include input;
+  }
+
+  &_errorMsg {
+    position: absolute;
+    left: 0;
+    color: white;
+    background-color: red;
+    z-index: 999;
+    top: -50px;
+    padding: 6px;
     border-radius: 5px;
-    background-color: #F3EAD2;
-    outline: none;
-    //margin-bottom: 10px;
+
+    &_triangle-down {
+      width: 0;
+      height: 0;
+      border-left: 7px solid transparent;
+      border-right: 7px solid transparent;
+      border-top: 8px solid red;
+      position: absolute;
+      bottom: -24px;
+      left: 16px;
+    }
   }
 
   @media (max-width: $breakpoint-sm) {

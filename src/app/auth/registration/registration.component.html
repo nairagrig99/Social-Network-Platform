@@ -9,18 +9,18 @@
         <app-input
           [placeholder]="'Name'"
           [formControl]="control('name')"
+          [error]="registerForm.getError('invalidUserName')"
         >
         </app-input>
         <app-input
           [placeholder]="'Surname'"
           [formControl]="control('surname')"
+          [error]="registerForm.getError('invalidSurName')"
         >
         </app-input>
-        <app-input
-          [placeholder]="'Birth Of Date'"
-          [formControl]="control('birthOfDate')"
-        >
-        </app-input>
+
+        <app-input-calendar></app-input-calendar>
+
         <app-input
           [placeholder]="'Gender'"
           [formControl]="control('gender')"
@@ -44,6 +44,7 @@
         <app-input
           [placeholder]="'Re Password'"
           [formControl]="control('rePassword')"
+          [error]="registerForm.getError('passwordMismatch')"
         >
         </app-input>
       </div>
@@ -53,7 +54,7 @@
       <app-button
         [label]="'Sign Up'"
         [disabled]="false"
-        (buttonClick)="loginUser()"
+        (buttonClick)="registerUser()"
       ></app-button>
     </div>
 

@@ -10,4 +10,11 @@
          [(ngModel)]="model"
          (ngModelChange)="onModelChange()"
   >
+  @if(error){
+    <div class="custom-field_errorMsg">
+      {{error | titlecase}}
+      <p class="custom-field_errorMsg_triangle-down"></p>
+    </div>
+  }
+
 </div>
