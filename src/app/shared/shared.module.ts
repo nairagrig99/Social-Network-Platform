@@ -5,7 +5,9 @@ import {ButtonComponent} from './button/button.component';
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {InputCalendarWindowComponent} from './input-calendar/input-calendar-window/input-calendar-window.component';
 import {InputCalendarComponent} from "@app/shared/input-calendar/input-calendar/input-calendar.component";
-import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
+import {MatIconModule, MatIconRegistry} from "@angular/material/icon";
+import {DomSanitizer} from "@angular/platform-browser";
+import {MatButton} from "@angular/material/button";
 
 @NgModule({
   declarations: [
@@ -18,7 +20,9 @@ import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
     CommonModule,
     FormsModule,
     NgOptimizedImage,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatIconModule,
+    MatButton
   ],
   exports: [
     InputComponent,
@@ -27,4 +31,5 @@ import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
     InputCalendarWindowComponent]
 })
 export class SharedModule {
+
 }

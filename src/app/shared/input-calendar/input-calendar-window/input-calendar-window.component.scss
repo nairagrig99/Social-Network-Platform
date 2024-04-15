@@ -9,5 +9,48 @@
       text-align: center;
 
     }
+
+    &-yearAndMonth {
+      @include flex-row-justify(space-evenly);
+
+      &_years, &_month {
+        @include flex-row-align-center;
+      }
+
+      &_leftArrow, &_rightArrow {
+        font-weight: 700;
+      }
+    }
+
+    &_allYears {
+      @include flex-row-align-center;
+      flex-wrap: wrap;
+      overflow-y: scroll;
+      height: 177px;
+      padding-left: 14px;
+
+      &_item {
+        padding: 7px;
+
+        &:hover {
+          background-color: red;
+        }
+      }
+    }
+
+    &_allMonth {
+      @include flex-row-align-center;
+      flex-wrap: wrap;
+      height: 177px;
+
+      &_item {
+        padding: 19px;
+
+        &:hover {
+          background-color: red;
+        }
+      }
+    }
   }
 }
+

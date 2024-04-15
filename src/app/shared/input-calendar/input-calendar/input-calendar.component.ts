@@ -14,10 +14,9 @@ import {
 export class InputCalendarComponent {
 
   public calendarWindowStateEnum = CalendarWindowStateEnum;
-  public calendarState$ = new BehaviorSubject(this.calendarWindowStateEnum.OPEN);
+  public calendarState$ = new BehaviorSubject(this.calendarWindowStateEnum.CLOSE);
 
   public toggleCalendarWindow() {
-
     this.calendarState$.next(
       this.calendarState$.getValue() === this.calendarWindowStateEnum.CLOSE ?
         this.calendarWindowStateEnum.OPEN :
