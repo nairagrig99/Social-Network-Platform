@@ -8,6 +8,18 @@
       gap: 15px;
       text-align: center;
 
+      &_days {
+        cursor: pointer;
+
+        &_day {
+          padding: 3px 6px;
+          border-radius: 50px;
+
+          &:hover {
+            background: $background-color;
+          }
+        }
+      }
     }
 
     &-yearAndMonth {

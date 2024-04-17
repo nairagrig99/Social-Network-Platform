@@ -3,10 +3,10 @@
     <div class="calendar-window__wrapper-yearAndMonth">
       <div class="calendar-window__wrapper-yearAndMonth_years">
         <div class="calendar-window__wrapper-yearAndMonth_leftArrow">
-          <mat-icon  (click)="prevYear()"
-                     svgIcon="left"></mat-icon>
+          <mat-icon (click)="prevYear()"
+                    svgIcon="left"></mat-icon>
         </div>
-        <p (click)="openYears()">{{ year }}</p>
+        <p (click)="openYears()">{{ getYearValue }}</p>
         <div class="calendar-window__wrapper-yearAndMonth_leftArrow">
           <mat-icon (click)="nextYear()"
                     svgIcon="right"></mat-icon>
@@ -18,7 +18,7 @@
           <mat-icon (click)="prevMonth()"
                     svgIcon="left"></mat-icon>
         </div>
-        <p (click)="openMonth()">{{ changeMonthToLocaleDateString(month) }}</p>
+        <p (click)="openMonth()">{{ changeMonthToLocaleDateString(month$.getValue()) }}</p>
         <div class="calendar-window__wrapper-yearAndMonth_leftArrow">
           <mat-icon (click)="nextMonth()"
                     svgIcon="right"></mat-icon>
@@ -26,16 +26,16 @@
       </div>
 
     </div>
-
     @if (!isYears && !isMonth) {
       <div class="calendar-window__wrapper_weeks">
         @for (calendar of calendar | async; track calendar) {
-          @for (keyValue of calendar | keyvalue; track keyValue) {
+          @for (week of calendar | keyvalue; track week) {
             <div>
-              <div class="calendar-window__wrapper_weeks_day">{{ keyValue.key }}</div>
-              <div class="calendar-window__wrapper_days">
-                @for (val of keyValue.value; track val) {
-                  <p>{{ val }}</p>
+              <div class="calendar-window__wrapper_weeks_name">{{ week.key }}</div>
+              <div class="calendar-window__wrapper_weeks_days">
+                @for (day of week.value; track day) {
+                  <p class="calendar-window__wrapper_weeks_days_day"
+                     (click)="chooseDay(day)">{{ day }}</p>
                 }
               </div>
             </div>

@@ -8,11 +8,13 @@ import {InputCalendarComponent} from "@app/shared/input-calendar/input-calendar/
 import {MatIconModule, MatIconRegistry} from "@angular/material/icon";
 import {DomSanitizer} from "@angular/platform-browser";
 import {MatButton} from "@angular/material/button";
+import {DateFormatPipe} from "@app/shared/pipes/date-format.pipe";
 
 @NgModule({
   declarations: [
     InputComponent,
     ButtonComponent,
+    DateFormatPipe,
     InputCalendarComponent,
     InputCalendarWindowComponent
   ],
