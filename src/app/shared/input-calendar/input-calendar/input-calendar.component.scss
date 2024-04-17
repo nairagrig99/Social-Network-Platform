@@ -1,6 +1,7 @@
 @import "../../style/all";
 
 .input-calendar {
+
   &-block {
     position: relative;
 
@@ -15,9 +16,18 @@
       top: 0;
       right: 0;
     }
+
   }
 
   &_window {
     position: relative;
+
+    &-show {
+      color: white;
+      position: absolute;
+      z-index: 999;
+      background-color: black;
+    }
+
   }
 }

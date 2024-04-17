@@ -1,15 +1,18 @@
 <div class="input-calendar">
   <div class="input-calendar-block">
-    <input type="text">
+    <input type="text"
+           [ngModel]="(inputValue$ | async) | dateFormat"
+    >
     <div class="input-calendar-block-svg" (click)="toggleCalendarWindow()">
       <img ngSrc="../../../assets/svg/calendar.svg" fill>
     </div>
   </div>
 
   <div class="input-calendar_window">
-    <div [@toggleCalendar]="calendarState$ | async">
-      <app-input-calendar-window>
-
+    <div class="input-calendar_window-show" [@toggleCalendar]="calendarState$ | async">
+      <app-input-calendar-window
+        (setSelectedDays)="selectedDays($event)"
+      >
       </app-input-calendar-window>
     </div>
   </div>

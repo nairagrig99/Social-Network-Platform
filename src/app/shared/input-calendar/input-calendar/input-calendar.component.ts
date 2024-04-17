@@ -12,16 +12,20 @@ import {
   animations: inputCalendarWindowAnimation,
 })
 export class InputCalendarComponent {
-
+  public inputValue$: BehaviorSubject<string> = new BehaviorSubject('');
   public calendarWindowStateEnum = CalendarWindowStateEnum;
-  public calendarState$ = new BehaviorSubject(this.calendarWindowStateEnum.OPEN);
+  public calendarState$ = new BehaviorSubject(this.calendarWindowStateEnum.CLOSE);
 
-  public toggleCalendarWindow() {
-
+  public toggleCalendarWindow(): void {
     this.calendarState$.next(
       this.calendarState$.getValue() === this.calendarWindowStateEnum.CLOSE ?
         this.calendarWindowStateEnum.OPEN :
         this.calendarWindowStateEnum.CLOSE
     )
+  }
+
+  public selectedDays(date: Date): void {
+    this.inputValue$.next(String(date));
+    this.toggleCalendarWindow();
   }
 }

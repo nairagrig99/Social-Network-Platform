@@ -4,16 +4,14 @@ export const inputCalendarWindowAnimation = [
   trigger('toggleCalendar', [
     state('open',
       style({
-        minWidth: '275px',
+        minWidth: '225px',
         maxWidth: '300px',
-        width: '100%',
         maxHeight: '240px',
         minHeight: '0',
-        position: 'absolute',
-        bottom: '0',
-        right: '0',
-        background: 'black',
-        color: 'white',
+        right: '-13px',
+        width: 'fit-content',
+        padding: '12px',
+        top: '5px',
         opacity: 1
       })),
     state('close',
@@ -28,6 +26,6 @@ export const inputCalendarWindowAnimation = [
         opacity: 0
       })
     ),
-    transition('close <=> open', animate('200ms ease-in'))
+    transition('close <=> open', animate('200ms  ease-in'))
   ])
 ]

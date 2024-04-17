@@ -22,6 +22,11 @@
   justify-content: $position;
 }
 
+@mixin flex-row-align-center {
+  @include flex-row;
+  align-items: center;
+}
+
 @mixin input {
   width: 100%;
   padding: 10px;

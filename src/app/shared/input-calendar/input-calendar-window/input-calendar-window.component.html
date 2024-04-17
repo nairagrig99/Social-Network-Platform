@@ -1,25 +1,64 @@
 <div class="calendar-window">
-
   <div class="calendar-window__wrapper">
-    <div class="calendar-window__wrapper_years">
-      2029
-    </div>
-    <div class="calendar-window__wrapper_weeks">
-      @for (calendar of calendar | async; track calendar) {
-        @for (keyValue of calendar | keyvalue; track keyValue) {
-          <div>
-            <div class="calendar-window__wrapper_weeks_day">{{ keyValue.key }}</div>
+    <div class="calendar-window__wrapper-yearAndMonth">
+      <div class="calendar-window__wrapper-yearAndMonth_years">
+        <div class="calendar-window__wrapper-yearAndMonth_leftArrow">
+          <mat-icon (click)="prevYear()"
+                    svgIcon="left"></mat-icon>
+        </div>
+        <p (click)="openYears()">{{ getYearValue }}</p>
+        <div class="calendar-window__wrapper-yearAndMonth_leftArrow">
+          <mat-icon (click)="nextYear()"
+                    svgIcon="right"></mat-icon>
+        </div>
+      </div>
 
-            <div class="calendar-window__wrapper_days">
-              @for (val of keyValue.value; track val) {
-                <p>{{ val }}</p>
-              }
+      <div class="calendar-window__wrapper-yearAndMonth_month">
+        <div class="calendar-window__wrapper-yearAndMonth_leftArrow">
+          <mat-icon (click)="prevMonth()"
+                    svgIcon="left"></mat-icon>
+        </div>
+        <p (click)="openMonth()">{{ changeMonthToLocaleDateString(month$.getValue()) }}</p>
+        <div class="calendar-window__wrapper-yearAndMonth_leftArrow">
+          <mat-icon (click)="nextMonth()"
+                    svgIcon="right"></mat-icon>
+        </div>
+      </div>
+
+    </div>
+    @if (!isYears && !isMonth) {
+      <div class="calendar-window__wrapper_weeks">
+        @for (calendar of calendar | async; track calendar) {
+          @for (week of calendar | keyvalue; track week) {
+            <div>
+              <div class="calendar-window__wrapper_weeks_name">{{ week.key }}</div>
+              <div class="calendar-window__wrapper_weeks_days">
+                @for (day of week.value; track day) {
+                  <p class="calendar-window__wrapper_weeks_days_day"
+                     (click)="chooseDay(day)">{{ day }}</p>
+                }
+              </div>
             </div>
-          </div>
+          }
         }
-      }
-    </div>
-
+      </div>
+    } @else if (isYears && !isMonth) {
+      <div class="calendar-window__wrapper_allYears">
+        @for (year of allYearsList; track year) {
+          <b class="calendar-window__wrapper_allYears_item"
+             (click)="chooseYear(year)"
+          >{{ year }}</b>
+        }
+      </div>
+    } @else if (isMonth && !isYears) {
+      <div class="calendar-window__wrapper_allMonth">
+        @for (month of allMonthsList; track month; let i = $index) {
+          <b class="calendar-window__wrapper_allMonth_item"
+             (click)="chooseMonth(i)"
+          >{{ month }}</b>
+        }
+      </div>
+    }
 
   </div>
 </div>
