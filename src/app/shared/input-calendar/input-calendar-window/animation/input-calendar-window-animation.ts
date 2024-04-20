@@ -6,7 +6,8 @@ export const inputCalendarWindowAnimation = [
       style({
         minWidth: '225px',
         maxWidth: '300px',
-        maxHeight: '240px',
+        maxHeight: '270px',
+        height: '270px',
         minHeight: '0',
         right: '-13px',
         width: 'fit-content',

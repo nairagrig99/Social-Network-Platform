@@ -1,10 +1,23 @@
-import {Component, EventEmitter, OnInit, Output} from '@angular/core';
-import {KeyInterface} from "@app/shared/interface/key-interface";
+import {
+  Component,
+  ElementRef,
+  EventEmitter,
+  Inject,
+  OnInit,
+  Output
+} from '@angular/core';
 import {BehaviorSubject, combineLatest, ReplaySubject} from "rxjs";
 import {MatIconRegistry} from "@angular/material/icon";
 import {DomSanitizer} from "@angular/platform-browser";
 import {SvgBaseIcon} from "@app/core/components/svg-base-icon";
 import {CalendarWindowService} from "@app/shared/input-calendar/service/calendar-window.service";
+import {
+  endMonth,
+  endYear,
+  startYear,
+  weekLen,
+  weeks
+} from "@app/shared/input-calendar/constants/calendar-constants";
 
 @Component({
   selector: 'app-input-calendar-window',
@@ -22,25 +35,21 @@ export class InputCalendarWindowComponent extends SvgBaseIcon implements OnInit 
   public isMonth: boolean = false;
   public allYearsList: number[] = this.getAllYears();
   public allMonthsList: string[] = this.getAllMonths();
-  public calendar: ReplaySubject<KeyInterface[]> = new ReplaySubject<KeyInterface[]>;
+  public calendar$: ReplaySubject<Date[][]> = new ReplaySubject<Date[][]>();
 
   public getMonthValue: number = this.month$.getValue();
   public getYearValue: number = this.year$.getValue();
-
-  private startYear: number = 1960;
-  private endYear: number = 2124;
-  private endMonth: number = 11;
-  private weekLen: number = 7;
-
+  public readonly weeks = weeks;
 
   constructor(public override matIconRegistry: MatIconRegistry,
               public override domSanitizer: DomSanitizer,
-              private calendarWindowService: CalendarWindowService) {
+              public calendarWindowService: CalendarWindowService) {
     super(matIconRegistry, domSanitizer);
   }
 
+
   ngOnInit(): void {
-    this.getAllDaysWithWeeksInMonth();
+    this.getAllDaysWithWeeksAndYearInMonth();
   }
 
   public chooseYear(year: number): void {
@@ -53,19 +62,19 @@ export class InputCalendarWindowComponent extends SvgBaseIcon implements OnInit 
     this.isMonth = false;
   }
 
-  public chooseDay(day: number): void {
-    const newDate: Date = new Date(this.getYearValue, this.getMonthValue, day);
+  public chooseDay(day: Date): void {
+    const newDate: Date = new Date(day.getFullYear(), day.getMonth(), day.getDate());
     this.setSelectedDays.emit(newDate);
   }
 
   public prevYear(): void {
-    if (this.getYearValue >= this.startYear) {
+    if (this.getYearValue >= startYear) {
       this.year$.next(--this.getYearValue)
     }
   }
 
   public nextYear(): void {
-    if (this.getYearValue <= this.endYear) {
+    if (this.getYearValue <= endYear) {
       this.year$.next(++this.getYearValue)
     }
   }
@@ -80,30 +89,50 @@ export class InputCalendarWindowComponent extends SvgBaseIcon implements OnInit 
     this.isYears = false;
   }
 
-  public getAllYears(): number[] {
-    const years: number[] = [];
-    for (let year = this.startYear; year <= this.endYear; year++) {
-      years.push(year);
+  public prevMonth(): void {
+    if (this.getMonthValue === 0) {
+      this.year$.next(--this.getYearValue);
+      this.month$.next(endMonth);
+      this.getMonthValue = endMonth;
+      return;
     }
-    return years;
+    if (this.getMonthValue > 0) {
+      this.month$.next(--this.getMonthValue);
+    }
   }
 
-  public changeMonthToLocaleDateString(month: number): string {
-    const date = new Date(this.getYearValue, month, 1);
-    const options: Intl.DateTimeFormatOptions = {month: 'short'}
-    return date.toLocaleDateString('en-US', options)
+  public nextMonth(): void {
+    if (this.getMonthValue === endMonth) {
+      this.year$.next(++this.getYearValue);
+      this.month$.next(0);
+      this.getMonthValue = 0;
+      return;
+    }
+
+    if (this.getMonthValue < endMonth) {
+      this.month$.next(++this.getMonthValue);
+    }
   }
 
   public getAllMonths(): string[] {
     const allMonthList = [];
-    for (let month = 0; month <= this.endMonth; month++) {
-      const formattedDate = this.changeMonthToLocaleDateString(month);
+    for (let month = 0; month <= endMonth; month++) {
+      const formattedDate = this.calendarWindowService.changeMonthToLocaleDateString(this.year$.getValue(), month);
       allMonthList.push(formattedDate);
     }
     return allMonthList;
   }
 
-  public getAllDaysWithWeeksInMonth(): void {
+  public getAllYears(): number[] {
+    const years: number[] = [];
+    for (let year = startYear; year <= endYear; year++) {
+      years.push(year);
+    }
+    return years;
+  }
+
+  private getAllDaysWithWeeksAndYearInMonth(): void {
+
     combineLatest([this.year$, this.month$])
       .subscribe(([year, month]) => {
 
@@ -114,58 +143,56 @@ export class InputCalendarWindowComponent extends SvgBaseIcon implements OnInit 
 
         for (let day = 1; day <= lastDayOfMonth.getDate(); day++) {
           const currentDate = new Date(year, month, day);
-          if (day === 1) {
+
+          if (day === 1 && currentDate.getDay() != 1) {
             let prevMonthWeek = currentDate.getDay();
             const prevMonthLastDay = new Date(year, month, 0);
 
             if (prevMonthWeek === 0) {
-              prevMonthWeek = this.weekLen;
+              prevMonthWeek = weekLen;
             }
 
-            for (let prevMonthDay = prevMonthLastDay.getDate(); prevMonthDay > prevMonthLastDay.getDate() - (prevMonthWeek - 1); prevMonthDay--) {
+            for (let prevMonthDay = prevMonthLastDay.getDate() - (prevMonthWeek - 2);
+                 prevMonthDay <= prevMonthLastDay.getDate(); prevMonthDay++) {
+
               const newDay = new Date(year, month - 1, prevMonthDay);
               currentWeek.push(newDay);
             }
           }
+
+          currentWeek.push(currentDate);
+
           if (day === lastDayOfMonth.getDate() && currentDate.getDay() <= 6 && currentDate.getDay() != 0) {
-            const week = this.weekLen;
-            for (let day = 1; day <= week - currentDate.getDay(); day++) {
+            for (let day = 1; day <= weekLen - currentDate.getDay(); day++) {
               const nextMonth = new Date(year, month + 1, day);
               currentWeek.push(nextMonth);
-
             }
           }
-          currentWeek.push(currentDate);
-          if (currentDate.getDay() === 6 || day === lastDayOfMonth.getDate()) {
+
+          if (currentDate.getDay() === 0 || day === lastDayOfMonth.getDate()) {
             daysArray.push(currentWeek);
             currentWeek = [];
           }
         }
-        this.calendar.next(this.calendarWindowService.groupDayByWeek(daysArray));
+
+        this.calendar$.next(daysArray);
       })
   }
 
-  public prevMonth(): void {
-    if (this.getMonthValue === 0) {
-      this.year$.next(--this.getYearValue);
-      this.month$.next(this.endMonth);
-      return;
+  public currentDateDays(month: number): boolean {
+
+    if (month === this.month$.getValue()) {
+      return true
     }
-    if (this.getMonthValue > 0) {
-      this.month$.next(--this.getMonthValue);
-    }
+    return false;
   }
 
-  public nextMonth(): void {
-    if (this.getMonthValue === this.endMonth) {
-      this.year$.next(++this.getYearValue);
-      this.month$.next(0);
-      return;
-    }
+  public weekendDays(day: number): boolean {
 
-    if (this.getMonthValue < this.endMonth) {
-      this.month$.next(++this.getMonthValue);
+    if (day === 0 || day === 6) {
+      return true
     }
+    return false;
   }
 
 }
