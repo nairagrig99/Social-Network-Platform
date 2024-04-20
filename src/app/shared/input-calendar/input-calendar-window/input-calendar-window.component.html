@@ -6,7 +6,7 @@
           <mat-icon (click)="prevYear()"
                     svgIcon="left"></mat-icon>
         </div>
-        <p (click)="openYears()">{{ getYearValue }}</p>
+        <p (click)="openYears()">{{ year$ | async }}</p>
         <div class="calendar-window__wrapper-yearAndMonth_leftArrow">
           <mat-icon (click)="nextYear()"
                     svgIcon="right"></mat-icon>
@@ -18,7 +18,8 @@
           <mat-icon (click)="prevMonth()"
                     svgIcon="left"></mat-icon>
         </div>
-        <p (click)="openMonth()">{{ changeMonthToLocaleDateString(month$.getValue()) }}</p>
+        <p
+          (click)="openMonth()">{{ calendarWindowService.changeMonthToLocaleDateString(getYearValue, month$.getValue()) }}</p>
         <div class="calendar-window__wrapper-yearAndMonth_leftArrow">
           <mat-icon (click)="nextMonth()"
                     svgIcon="right"></mat-icon>
@@ -26,21 +27,22 @@
       </div>
 
     </div>
+
     @if (!isYears && !isMonth) {
       <div class="calendar-window__wrapper_weeks">
-        @for (calendar of calendar | async; track calendar) {
-          @for (week of calendar | keyvalue; track week) {
-            <div>
-              <div class="calendar-window__wrapper_weeks_name">{{ week.key }}</div>
-              <div class="calendar-window__wrapper_weeks_days">
-                @for (day of week.value; track day) {
-                  <p class="calendar-window__wrapper_weeks_days_day"
-                     (click)="chooseDay(day)">{{ day }}</p>
-                }
-              </div>
-            </div>
+        <div class="calendar-window__wrapper_weeks_days">
+          @for (week of weeks; track week) {
+            <div>{{ week }}</div>
           }
-        }
+          @for (calendar of calendar$ | async; track calendar) {
+            @for (day of calendar; track day) {
+              <p class="calendar-window__wrapper_weeks_days_day"
+                 [ngClass]="{'isCurrentMonthDay': !currentDateDays(day.getMonth()),
+                 'weekEndDays':weekendDays(day.getDay()) }"
+                 (click)="chooseDay(day)">{{ day.getDate() }}</p>
+            }
+          }
+        </div>
       </div>
     } @else if (isYears && !isMonth) {
       <div class="calendar-window__wrapper_allYears">
@@ -59,6 +61,7 @@
         }
       </div>
     }
+
 
   </div>
 </div>
