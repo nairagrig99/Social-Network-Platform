@@ -1,10 +1,15 @@
 <div class="input-calendar">
   <div class="input-calendar-block">
     <input type="text"
-           [ngModel]="(inputValue$ | async) | dateFormat"
+           dateMask
+           [(ngModel)]="inputValue"
+           placeholder="dd/mm/yyyy"
     >
-    <div class="input-calendar-block-svg" (click)="toggleCalendarWindow()">
+    <div class="input-calendar-block-svg"
+         (click)="toggleCalendarWindow()">
+
       <img ngSrc="../../../assets/svg/calendar.svg" fill>
+
     </div>
   </div>
 

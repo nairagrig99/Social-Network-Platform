@@ -1,15 +1,13 @@
 import {
   Component,
-  ElementRef,
   EventEmitter,
-  Inject,
+  OnDestroy,
   OnInit,
   Output
 } from '@angular/core';
-import {BehaviorSubject, combineLatest, ReplaySubject} from "rxjs";
+import {BehaviorSubject, combineLatest, ReplaySubject, takeUntil} from "rxjs";
 import {MatIconRegistry} from "@angular/material/icon";
 import {DomSanitizer} from "@angular/platform-browser";
-import {SvgBaseIcon} from "@app/core/components/svg-base-icon";
 import {CalendarWindowService} from "@app/shared/input-calendar/service/calendar-window.service";
 import {
   endMonth,
@@ -18,6 +16,7 @@ import {
   weekLen,
   weeks
 } from "@app/shared/input-calendar/constants/calendar-constants";
+import {SvgIcon, UnsubscribeMixin} from "@app/shared/input-calendar/input-calendar-window/base-mixin";
 
 @Component({
   selector: 'app-input-calendar-window',
@@ -25,7 +24,9 @@ import {
   styleUrl: './input-calendar-window.component.scss',
   providers: [CalendarWindowService]
 })
-export class InputCalendarWindowComponent extends SvgBaseIcon implements OnInit {
+
+export class InputCalendarWindowComponent extends UnsubscribeMixin(SvgIcon(class {
+})) implements OnInit, OnDestroy {
 
   @Output() setSelectedDays: EventEmitter<Date> = new EventEmitter<Date>()
 
@@ -41,13 +42,14 @@ export class InputCalendarWindowComponent extends SvgBaseIcon implements OnInit 
   public getYearValue: number = this.year$.getValue();
   public readonly weeks = weeks;
 
-  constructor(public override matIconRegistry: MatIconRegistry,
-              public override domSanitizer: DomSanitizer,
-              public calendarWindowService: CalendarWindowService) {
+  constructor(
+    public override matIconRegistry: MatIconRegistry,
+    public override domSanitizer: DomSanitizer,
+    public calendarWindowService: CalendarWindowService) {
     super(matIconRegistry, domSanitizer);
+    this.svgIconShow()
   }
-
-
+  
   ngOnInit(): void {
     this.getAllDaysWithWeeksAndYearInMonth();
   }
@@ -134,6 +136,7 @@ export class InputCalendarWindowComponent extends SvgBaseIcon implements OnInit 
   private getAllDaysWithWeeksAndYearInMonth(): void {
 
     combineLatest([this.year$, this.month$])
+      .pipe(takeUntil(this.ngUnsubscribe))
       .subscribe(([year, month]) => {
 
         let lastDayOfMonth: Date = new Date(year, month + 1, 0);
@@ -196,3 +199,4 @@ export class InputCalendarWindowComponent extends SvgBaseIcon implements OnInit 
   }
 
 }
+

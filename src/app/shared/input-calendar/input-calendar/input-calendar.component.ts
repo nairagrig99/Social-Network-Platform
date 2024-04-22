@@ -20,7 +20,13 @@ export class InputCalendarComponent implements AfterViewInit {
 
   constructor(private calendarService: CalendarWindowService,
               private elementRef: ElementRef) {
+  }
 
+  set inputValue(value: string) {
+    this.inputValue$.next(value);
+  }
+  get inputValue() {
+   return  this.inputValue$.getValue();
   }
 
   public toggleCalendarWindow(): void {
