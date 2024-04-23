@@ -49,7 +49,7 @@ export class InputCalendarWindowComponent extends UnsubscribeMixin(SvgIcon(class
     super(matIconRegistry, domSanitizer);
     this.svgIconShow()
   }
-  
+
   ngOnInit(): void {
     this.getAllDaysWithWeeksAndYearInMonth();
   }
@@ -116,6 +116,22 @@ export class InputCalendarWindowComponent extends UnsubscribeMixin(SvgIcon(class
     }
   }
 
+  public currentDateDays(month: number): boolean {
+
+    if (month === this.month$.getValue()) {
+      return true
+    }
+    return false;
+  }
+
+  public weekendDays(day: number): boolean {
+
+    if (day === 0 || day === 6) {
+      return true
+    }
+    return false;
+  }
+
   public getAllMonths(): string[] {
     const allMonthList = [];
     for (let month = 0; month <= endMonth; month++) {
@@ -180,22 +196,6 @@ export class InputCalendarWindowComponent extends UnsubscribeMixin(SvgIcon(class
 
         this.calendar$.next(daysArray);
       })
-  }
-
-  public currentDateDays(month: number): boolean {
-
-    if (month === this.month$.getValue()) {
-      return true
-    }
-    return false;
-  }
-
-  public weekendDays(day: number): boolean {
-
-    if (day === 0 || day === 6) {
-      return true
-    }
-    return false;
   }
 
 }

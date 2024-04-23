@@ -1,10 +1,12 @@
-import {AfterViewChecked, AfterViewInit, Component, ElementRef} from '@angular/core';
+import {AfterViewChecked, AfterViewInit, Component, ElementRef, OnInit} from '@angular/core';
 import {BehaviorSubject} from "rxjs";
 import {CalendarWindowStateEnum} from "@app/shared/input-calendar/enums/calendar-window-state.enum";
 import {
   inputCalendarWindowAnimation
 } from "@app/shared/input-calendar/input-calendar-window/animation/input-calendar-window-animation";
 import {CalendarWindowService} from "@app/shared/input-calendar/service/calendar-window.service";
+import {FormBuilder, FormGroup, Validators} from "@angular/forms";
+import {numberValidator} from "@app/shared/custom-validators/input-number-custom-validator";
 
 @Component({
   selector: 'app-input-calendar',
@@ -13,20 +15,33 @@ import {CalendarWindowService} from "@app/shared/input-calendar/service/calendar
   animations: inputCalendarWindowAnimation,
   providers: [CalendarWindowService]
 })
-export class InputCalendarComponent implements AfterViewInit {
+export class InputCalendarComponent implements OnInit, AfterViewInit {
   public inputValue$: BehaviorSubject<string> = new BehaviorSubject('');
   public calendarWindowStateEnum = CalendarWindowStateEnum;
   public calendarState$ = new BehaviorSubject(this.calendarWindowStateEnum.CLOSE);
 
+  public inputCalendarForm!:FormGroup;
   constructor(private calendarService: CalendarWindowService,
-              private elementRef: ElementRef) {
+              private elementRef: ElementRef,
+              private formBuilder: FormBuilder) {
+  }
+
+  ngOnInit(): void {
+    this.initCalendarInputForm();
+  }
+
+  private initCalendarInputForm() {
+    this.inputCalendarForm=this.formBuilder.group({
+      date:[null,[numberValidator()]]
+    })
   }
 
   set inputValue(value: string) {
     this.inputValue$.next(value);
   }
+
   get inputValue() {
-   return  this.inputValue$.getValue();
+    return this.inputValue$.getValue();
   }
 
   public toggleCalendarWindow(): void {
@@ -57,4 +72,6 @@ export class InputCalendarComponent implements AfterViewInit {
   ngAfterViewInit(): void {
     this.closeCalendarWhenClickedOutside()
   }
+
+  protected readonly FormGroup = FormGroup;
 }
