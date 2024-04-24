@@ -23,20 +23,20 @@ export class CalendarWindowService {
   }
 
   private checkOwnershipInParents(targetElement: HTMLElement, DOMOfOwner: HTMLElement): boolean {
-    return true;
-    // if (!targetElement) {
-    //   return false;
-    // }
-    //
-    // if (targetElement.nodeName === 'BODY') {
-    //   return false;
-    // }
-    //
-    // if (targetElement === DOMOfOwner) {
-    //   return true;
-    // }
-    //
-    // return this.checkOwnershipInParents(targetElement?.parentNode as HTMLElement, DOMOfOwner);
+
+    if (!targetElement) {
+      return false;
+    }
+
+    if (targetElement.nodeName === 'BODY') {
+      return false;
+    }
+
+    if (targetElement === DOMOfOwner) {
+      return true;
+    }
+
+    return this.checkOwnershipInParents(targetElement?.parentNode as HTMLElement, DOMOfOwner);
   }
 
   public changeMonthToLocaleDateString(year: number, month: number): string {

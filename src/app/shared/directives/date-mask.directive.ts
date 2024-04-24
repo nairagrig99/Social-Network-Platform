@@ -10,10 +10,7 @@ export class DateMaskDirective {
     const inputValue = event.target.value;
     let newValue = inputValue.replace(/\D/g, '').slice(0, 8);
 
-    const findStr = inputValue.split('').every((str: string) => {
-      const regex: RegExp = /[a-zA-Z]/;
-      return regex.test(str);
-    })
+    const findStr = inputValue.split('').every((str: string) => /[a-zA-Z]/.test(str))
 
     if (!findStr) {
       event.target.value = this.maskInputValue(newValue);
@@ -25,6 +22,7 @@ export class DateMaskDirective {
 
   private maskInputValue(newValue: string): string {
     if (newValue.length >= 2 && newValue.length < 4) {
+      this.validationDates(newValue)
       return newValue.replace(/(\d{2})/, '$1/');
     } else if (newValue.length >= 4 && newValue.length < 8) {
       return newValue.replace(/(\d{2})(\d{2})/, '$1/$2/');
@@ -51,7 +49,10 @@ export class DateMaskDirective {
         input.setSelectionRange(newCursorPosition, selectionEnd);
       }
     }
+  }
 
+  private validationDates(date: string) {
+    const newDate = date.split('');
   }
 
 }
