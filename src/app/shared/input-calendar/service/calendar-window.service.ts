@@ -1,9 +1,21 @@
 import {Injectable} from "@angular/core";
 import {KeyInterface} from "@app/shared/interface/key-interface";
-import {fromEvent, map, Observable} from "rxjs";
+import {BehaviorSubject, fromEvent, map, Observable, of, ReplaySubject, Subject} from "rxjs";
 
 @Injectable()
 export class CalendarWindowService {
+
+  private dateInputValue$: ReplaySubject<Date> = new ReplaySubject<Date>();
+  private date$: Observable<Date> = this.dateInputValue$.asObservable();
+
+  public setInputValue(date: Date) {
+    this.dateInputValue$.next(date);
+  }
+
+  public getAsyncInputValue(): Observable<any> {
+    return this.date$;
+  }
+
   public closeCalendarWhenClickedOutside(domElement: HTMLElement): Observable<boolean> {
     return fromEvent(document, 'click').pipe(
       map((event: Event) => this.checkOwnershipInParents(event.target as HTMLElement, domElement))
@@ -32,4 +44,6 @@ export class CalendarWindowService {
     const options: Intl.DateTimeFormatOptions = {month: 'short'}
     return date.toLocaleDateString('en-US', options);
   }
+
+
 }

@@ -10,9 +10,8 @@ export class DateMaskDirective {
     const inputValue = event.target.value;
     let newValue = inputValue.replace(/\D/g, '').slice(0, 8);
 
-    const findStr = inputValue.split('').every((str: any) => {
+    const findStr = inputValue.split('').every((str: string) => {
       const regex: RegExp = /[a-zA-Z]/;
-
       return regex.test(str);
     })
 
@@ -46,9 +45,10 @@ export class DateMaskDirective {
       if (selectionStart === selectionEnd && selectionStart % 3 === 0) {
         event.preventDefault();
         const value = input.value;
-        const newValue = value.slice(0, selectionStart - 1) + value.slice(selectionStart);
+        const newValue = value.slice(0, selectionStart - 1);
         input.value = newValue;
-        input.setSelectionRange(selectionStart - 1, selectionStart - 1);
+        const newCursorPosition = selectionStart === selectionEnd ? selectionStart - 1 : selectionStart;
+        input.setSelectionRange(newCursorPosition, selectionEnd);
       }
     }
 

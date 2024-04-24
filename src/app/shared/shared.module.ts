@@ -10,6 +10,7 @@ import {DomSanitizer} from "@angular/platform-browser";
 import {MatButton} from "@angular/material/button";
 import {DateFormatPipe} from "@app/shared/pipes/date-format.pipe";
 import {DateMaskDirective} from "@app/shared/directives/date-mask.directive";
+import {CalendarWindowService} from "@app/shared/input-calendar/service/calendar-window.service";
 
 @NgModule({
   declarations: [
@@ -32,7 +33,8 @@ import {DateMaskDirective} from "@app/shared/directives/date-mask.directive";
     InputComponent,
     ButtonComponent,
     InputCalendarComponent,
-    InputCalendarWindowComponent]
+    InputCalendarWindowComponent],
+  providers: [CalendarWindowService]
 })
 export class SharedModule {
 

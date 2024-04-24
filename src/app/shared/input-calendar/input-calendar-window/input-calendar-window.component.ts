@@ -22,25 +22,22 @@ import {SvgIcon, UnsubscribeMixin} from "@app/shared/input-calendar/input-calend
   selector: 'app-input-calendar-window',
   templateUrl: './input-calendar-window.component.html',
   styleUrl: './input-calendar-window.component.scss',
-  providers: [CalendarWindowService]
 })
-
 export class InputCalendarWindowComponent extends UnsubscribeMixin(SvgIcon(class {
 })) implements OnInit, OnDestroy {
 
-  @Output() setSelectedDays: EventEmitter<Date> = new EventEmitter<Date>()
-
+  public calendar$: ReplaySubject<Date[][]> = new ReplaySubject<Date[][]>();
+  public selectedDay$: BehaviorSubject<Date> = new BehaviorSubject<Date>(new Date())
   public year$ = new BehaviorSubject(new Date().getFullYear());
   public month$ = new BehaviorSubject(new Date().getMonth());
   public isYears: boolean = false;
   public isMonth: boolean = false;
   public allYearsList: number[] = this.getAllYears();
   public allMonthsList: string[] = this.getAllMonths();
-  public calendar$: ReplaySubject<Date[][]> = new ReplaySubject<Date[][]>();
 
   public getMonthValue: number = this.month$.getValue();
   public getYearValue: number = this.year$.getValue();
-  public readonly weeks = weeks;
+  public readonly weeks: string[] = weeks;
 
   constructor(
     public override matIconRegistry: MatIconRegistry,
@@ -52,6 +49,24 @@ export class InputCalendarWindowComponent extends UnsubscribeMixin(SvgIcon(class
 
   ngOnInit(): void {
     this.getAllDaysWithWeeksAndYearInMonth();
+    this.getSelectedInputValue();
+  }
+
+  private getSelectedInputValue(): void {
+    this.calendarWindowService.getAsyncInputValue()
+      .pipe(takeUntil(this.ngUnsubscribe))
+      .subscribe((date: Date) => {
+        this.selectedDay$.next(date)
+        this.year$.next(date.getFullYear());
+        this.month$.next(date.getMonth());
+        this.getMonthValue = this.month$.getValue();
+      })
+  }
+
+  public selectCurrentDate(date: Date): boolean {
+    return date.getDate() === this.selectedDay$.getValue().getDate()
+      && date.getDay() === this.selectedDay$.getValue().getDay()
+      && date.getFullYear() === this.selectedDay$.getValue().getFullYear()
   }
 
   public chooseYear(year: number): void {
@@ -65,8 +80,8 @@ export class InputCalendarWindowComponent extends UnsubscribeMixin(SvgIcon(class
   }
 
   public chooseDay(day: Date): void {
-    const newDate: Date = new Date(day.getFullYear(), day.getMonth(), day.getDate());
-    this.setSelectedDays.emit(newDate);
+    this.selectedDay$.next(day);
+    this.calendarWindowService.setInputValue(day)
   }
 
   public prevYear(): void {
@@ -79,6 +94,7 @@ export class InputCalendarWindowComponent extends UnsubscribeMixin(SvgIcon(class
     if (this.getYearValue <= endYear) {
       this.year$.next(++this.getYearValue)
     }
+
   }
 
   public openYears(): void {
@@ -104,6 +120,7 @@ export class InputCalendarWindowComponent extends UnsubscribeMixin(SvgIcon(class
   }
 
   public nextMonth(): void {
+
     if (this.getMonthValue === endMonth) {
       this.year$.next(++this.getYearValue);
       this.month$.next(0);
@@ -132,7 +149,7 @@ export class InputCalendarWindowComponent extends UnsubscribeMixin(SvgIcon(class
     return false;
   }
 
-  public getAllMonths(): string[] {
+  private getAllMonths(): string[] {
     const allMonthList = [];
     for (let month = 0; month <= endMonth; month++) {
       const formattedDate = this.calendarWindowService.changeMonthToLocaleDateString(this.year$.getValue(), month);
@@ -141,7 +158,7 @@ export class InputCalendarWindowComponent extends UnsubscribeMixin(SvgIcon(class
     return allMonthList;
   }
 
-  public getAllYears(): number[] {
+  private getAllYears(): number[] {
     const years: number[] = [];
     for (let year = startYear; year <= endYear; year++) {
       years.push(year);

@@ -37,9 +37,7 @@ export class InputComponent implements ControlValueAccessor {
 
   }
 
-  onModelChange() {
-
-    console.log('model',this.model)
+  onModelChange(): void {
     this.onChange(this.model);
   }
 

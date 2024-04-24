@@ -37,7 +37,9 @@
           @for (calendar of calendar$ | async; track calendar) {
             @for (day of calendar; track day) {
               <p class="calendar-window__wrapper_weeks_days_day"
-                 [ngClass]="{'isCurrentMonthDay': !currentDateDays(day.getMonth()),
+                 [ngClass]="
+                 {'selectedDay':selectCurrentDate(day),
+                 'isCurrentMonthDay': !currentDateDays(day.getMonth()),
                  'weekEndDays':weekendDays(day.getDay()) }"
                  (click)="chooseDay(day)">{{ day.getDate() }}</p>
             }

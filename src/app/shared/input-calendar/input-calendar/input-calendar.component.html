@@ -4,6 +4,7 @@
            dateMask
            [ngModel]="inputValue | dateFormat"
            placeholder="dd/mm/yyyy"
+           (ngModelChange)="onModelChange($event)"
     >
     <div class="input-calendar-block-svg"
          (click)="toggleCalendarWindow()">
@@ -12,9 +13,7 @@
   </div>
   <div class="input-calendar_window">
     <div class="input-calendar_window-show" [@toggleCalendar]="calendarState$ | async">
-      <app-input-calendar-window
-        (setSelectedDays)="selectedDays($event)"
-      >
+      <app-input-calendar-window>
       </app-input-calendar-window>
     </div>
   </div>
