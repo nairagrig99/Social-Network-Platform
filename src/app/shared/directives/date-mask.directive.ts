@@ -17,12 +17,10 @@ export class DateMaskDirective {
       return
     }
 
-    event.target.value = this.maskInputValue(newValue)
   }
 
   private maskInputValue(newValue: string): string {
     if (newValue.length >= 2 && newValue.length < 4) {
-      this.validationDates(newValue)
       return newValue.replace(/(\d{2})/, '$1/');
     } else if (newValue.length >= 4 && newValue.length < 8) {
       return newValue.replace(/(\d{2})(\d{2})/, '$1/$2/');
@@ -51,8 +49,6 @@ export class DateMaskDirective {
     }
   }
 
-  private validationDates(date: string) {
-    const newDate = date.split('');
-  }
+
 
 }
