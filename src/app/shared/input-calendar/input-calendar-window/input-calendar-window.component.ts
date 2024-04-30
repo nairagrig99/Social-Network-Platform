@@ -94,7 +94,6 @@ export class InputCalendarWindowComponent extends UnsubscribeMixin(SvgIcon(class
     if (this.getYearValue <= endYear) {
       this.year$.next(++this.getYearValue)
     }
-
   }
 
   public openYears(): void {
