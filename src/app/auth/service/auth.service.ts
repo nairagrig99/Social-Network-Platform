@@ -6,8 +6,7 @@ import {AuthUserInterface} from "@auth/interface/auth-user.interface";
   providedIn: 'root'
 })
 export class AuthService {
-  constructor() {
-  }
+  constructor() {}
 
   public signUpUser(registerUser: AuthUserInterface) {
     localStorage.setItem('signUp', JSON.stringify(registerUser) || '{}');

@@ -19,21 +19,27 @@
         >
         </app-input>
 
-        <app-input-calendar></app-input-calendar>
+        <app-input-calendar
+          [formControl]="control('birthOfDate') "
+        ></app-input-calendar>
 
         <app-input
           [placeholder]="'Gender'"
           [formControl]="control('gender')"
         >
         </app-input>
-        <app-input
+
+        <app-select
           [placeholder]="'Country'"
           [formControl]="control('country')"
+          [filteredOptions]="countries$"
         >
-        </app-input>
+        </app-select>
+
         <app-input
           [placeholder]="'Email'"
           [formControl]="control('email')"
+          [error]="registerForm.getError('existUser')"
         >
         </app-input>
         <app-input

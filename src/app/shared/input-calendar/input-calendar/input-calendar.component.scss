@@ -4,6 +4,10 @@
 
   &-block {
     position: relative;
+    @media (max-width: 576px) {
+      width: 300px;
+      margin: 0 auto;
+    }
 
     input {
       @include input;
