@@ -13,7 +13,8 @@ export const inputCalendarWindowAnimation = [
         width: 'fit-content',
         padding: '12px',
         top: '5px',
-        opacity: 1
+        opacity: 1,
+        display: 'block'
       })),
     state('close',
       style({
@@ -24,6 +25,7 @@ export const inputCalendarWindowAnimation = [
         minHeight: '0',
         top: '-10px',
         right: '10px',
+        display: 'none',
         opacity: 0
       })
     ),

@@ -8,13 +8,18 @@ export function customAuthValidator(group: FormGroup): ValidationErrors | null {
   const re_password = group.get('rePassword')?.value;
   const name = group.get('name')?.value;
   const surname = group.get('surname')?.value;
+  const email = group.get('email')?.value;
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
   const controls = group.controls;
+
+
   for (const nameKey in controls) {
     if (controls[nameKey].value === '') {
-      return null
+      return null;
     }
   }
+  const isUserExist = JSON.parse(localStorage.getItem('signUp') || '{}')
 
   if ((password && re_password) && password !== re_password) {
     return {passwordMismatch: 'Passwords do not match'};
@@ -26,6 +31,13 @@ export function customAuthValidator(group: FormGroup): ValidationErrors | null {
 
   if (!regExp.test(surname)) {
     return {invalidSurName: 'surname is not correct'};
+  }
+
+
+  if (isUserExist.hasOwnProperty('email') && isUserExist.email === email) {
+    return {existUser: 'User is Already Exist'};
+  } else if (!emailRegex.test(email) && group.get('email')?.dirty) {
+    return {existUser: 'Invalid Email'};
   }
 
   return null;

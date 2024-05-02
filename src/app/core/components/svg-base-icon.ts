@@ -1,9 +1,12 @@
 import {MatIconRegistry} from "@angular/material/icon";
 import {DomSanitizer} from "@angular/platform-browser";
 import {Injectable} from "@angular/core";
+
 export abstract class SvgBaseIcon {
   protected constructor(public matIconRegistry: MatIconRegistry,
-                        public domSanitizer: DomSanitizer) {}
+                        public domSanitizer: DomSanitizer) {
+  }
+
   protected svgIconShow() {
     this.matIconRegistry?.addSvgIcon(
       'left',
@@ -13,6 +16,10 @@ export abstract class SvgBaseIcon {
       'right',
       this.domSanitizer.bypassSecurityTrustResourceUrl('assets/svg/right.svg'),
     );
+    this.matIconRegistry?.addSvgIcon(
+      'arrow',
+      this.domSanitizer.bypassSecurityTrustResourceUrl('assets/svg/arrow.svg')
+    )
   }
 
 }

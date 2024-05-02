@@ -1,0 +1,41 @@
+@import "../style/all";
+
+.custom_select {
+  margin: 0 auto;
+  font-family: cursive;
+  color: white;
+  position: relative;
+
+  @media (max-width: 576px) {
+    max-width: 300px;
+  }
+
+  &_input {
+    position: relative;
+
+    input {
+      @include input;
+    }
+
+    &-arrow {
+      position: absolute;
+      right: 0;
+      top: 8px;
+    }
+  }
+
+  &_option {
+    position: absolute;
+    height: 250px;
+    width: 270px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    background-color: #F3EAD2;
+    color: black;
+    z-index: 999;
+    top: 37px;
+    cursor: pointer;
+    border-radius: 0 0 11px 12px;
+  }
+}
+

@@ -11,6 +11,7 @@ import {MatButton} from "@angular/material/button";
 import {DateFormatPipe} from "@app/shared/pipes/date-format.pipe";
 import {DateMaskDirective} from "@app/shared/directives/date-mask.directive";
 import {CalendarWindowService} from "@app/shared/input-calendar/service/calendar-window.service";
+import { SelectComponent } from './select/select.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,8 @@ import {CalendarWindowService} from "@app/shared/input-calendar/service/calendar
     DateFormatPipe,
     DateMaskDirective,
     InputCalendarComponent,
-    InputCalendarWindowComponent
+    InputCalendarWindowComponent,
+    SelectComponent
   ],
   imports: [
     CommonModule,
@@ -29,11 +31,13 @@ import {CalendarWindowService} from "@app/shared/input-calendar/service/calendar
     MatIconModule,
     MatButton
   ],
-  exports: [
-    InputComponent,
-    ButtonComponent,
-    InputCalendarComponent,
-    InputCalendarWindowComponent],
+    exports: [
+        InputComponent,
+        ButtonComponent,
+        InputCalendarComponent,
+        InputCalendarWindowComponent,
+        SelectComponent
+    ],
   providers: [CalendarWindowService]
 })
 export class SharedModule {
