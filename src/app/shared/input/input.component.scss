@@ -9,6 +9,11 @@
 
   &_input {
     @include input;
+    &-password {
+      position: absolute;
+      right: 0;
+      top: 8px;
+    }
   }
 
   &_errorMsg {

@@ -85,13 +85,13 @@ export class InputCalendarComponent implements OnInit, AfterViewInit, ControlVal
   public selectedDays(): void {
     this.calendarService.getAsyncInputValue().subscribe((date) => {
       this.inputValue$.next(String(date));
-      this.onChange(date)
+      this.onChange(String(date))
       this.toggleCalendarWindow();
     })
   }
 
   private closeCalendarWhenClickedOutside(): void {
-    this.calendarService.closeCalendarWhenClickedOutside(this.elementRef.nativeElement).subscribe((isOutsideClick: boolean) => {
+    this.calendarService.closeModalWhenClickedOutside(this.elementRef.nativeElement).subscribe((isOutsideClick: boolean) => {
       if (!isOutsideClick) {
         this.hideCalendarWindow()
       }
@@ -110,6 +110,7 @@ export class InputCalendarComponent implements OnInit, AfterViewInit, ControlVal
   }
 
   writeValue(obj: any): void {
+    this.inputValue = obj;
   }
 
 }

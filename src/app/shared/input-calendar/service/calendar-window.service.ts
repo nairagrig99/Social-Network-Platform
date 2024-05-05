@@ -16,14 +16,13 @@ export class CalendarWindowService {
     return this.date$;
   }
 
-  public closeCalendarWhenClickedOutside(domElement: HTMLElement): Observable<boolean> {
+  public closeModalWhenClickedOutside(domElement: HTMLElement): Observable<boolean> {
     return fromEvent(document, 'click').pipe(
       map((event: Event) => this.checkOwnershipInParents(event.target as HTMLElement, domElement))
     )
   }
 
   private checkOwnershipInParents(targetElement: HTMLElement, DOMOfOwner: HTMLElement): boolean {
-
     if (!targetElement) {
       return false;
     }

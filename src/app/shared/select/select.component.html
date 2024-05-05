@@ -10,10 +10,12 @@
         <mat-icon (click)="openSelect()" svgIcon="arrow"></mat-icon>
       </div>
     </div>
-    <div class="custom_select_option" [@toggleSelectOption]="selectState$ | async">
+    <div class="custom_select_option"
+         selectHeight
+         [@toggleSelectOption]="selectState$ | async">
       <ul>
         @for (option of options | async | keyvalue; track option) {
-          <option [value]="option.value" (click)="selectedValue(option.value)">{{ option.value }}</option>
+          <option  [value]="option.value" (click)="selectedValue(option.value)">{{ option.value }}</option>
         }
       </ul>
     </div>
