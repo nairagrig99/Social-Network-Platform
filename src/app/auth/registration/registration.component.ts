@@ -44,16 +44,21 @@ export class RegistrationComponent implements OnInit {
     }, {validators: customAuthValidator});
   }
 
-  public registerUser() {
+  public registerUser(): void {
     if (this.registerForm.valid) {
       const authUserList = JSON.parse(localStorage.getItem('signUp') || '[]');
 
       this.authService.signUpUser(authUserList.length ? [...authUserList, this.registerForm.value] : [this.registerForm.value]);
-      const ctrl = this.registerForm.controls
-      Object.keys(ctrl).forEach((controlName) => {
-        this.registerForm.controls[controlName].reset()
-      })
+      this.removeControlValue();
     }
+  }
+
+  private removeControlValue(): void {
+    const ctrl = this.registerForm.controls;
+
+    Object.keys(ctrl).forEach((controlName) => {
+      this.registerForm.controls[controlName].reset()
+    })
   }
 
   public control(controlName: string): FormControl {
