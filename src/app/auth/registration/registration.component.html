@@ -23,11 +23,12 @@
           [formControl]="control('birthOfDate') "
         ></app-input-calendar>
 
-        <app-input
+        <app-select
           [placeholder]="'Gender'"
+          [filteredOptions]="gender"
           [formControl]="control('gender')"
         >
-        </app-input>
+        </app-select>
 
         <app-select
           [placeholder]="'Country'"
@@ -43,11 +44,15 @@
         >
         </app-input>
         <app-input
+          [isPsw]="true"
+          [type]="'password'"
           [placeholder]="'Password'"
           [formControl]="control('password')"
         >
         </app-input>
         <app-input
+          [isPsw]="true"
+          [type]="'password'"
           [placeholder]="'Re Password'"
           [formControl]="control('rePassword')"
           [error]="registerForm.getError('passwordMismatch')"

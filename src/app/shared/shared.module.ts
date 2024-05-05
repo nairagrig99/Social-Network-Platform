@@ -11,17 +11,19 @@ import {MatButton} from "@angular/material/button";
 import {DateFormatPipe} from "@app/shared/pipes/date-format.pipe";
 import {DateMaskDirective} from "@app/shared/directives/date-mask.directive";
 import {CalendarWindowService} from "@app/shared/input-calendar/service/calendar-window.service";
-import { SelectComponent } from './select/select.component';
+import {SelectComponent} from './select/select.component';
+import {CustomSelectHeightDirective} from "@app/shared/directives/custom-select-height.directive";
 
 @NgModule({
   declarations: [
     InputComponent,
     ButtonComponent,
     DateFormatPipe,
+    SelectComponent,
     DateMaskDirective,
     InputCalendarComponent,
+    CustomSelectHeightDirective,
     InputCalendarWindowComponent,
-    SelectComponent
   ],
   imports: [
     CommonModule,
@@ -31,13 +33,13 @@ import { SelectComponent } from './select/select.component';
     MatIconModule,
     MatButton
   ],
-    exports: [
-        InputComponent,
-        ButtonComponent,
-        InputCalendarComponent,
-        InputCalendarWindowComponent,
-        SelectComponent
-    ],
+  exports: [
+    InputComponent,
+    ButtonComponent,
+    InputCalendarComponent,
+    InputCalendarWindowComponent,
+    SelectComponent
+  ],
   providers: [CalendarWindowService]
 })
 export class SharedModule {

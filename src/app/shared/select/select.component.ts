@@ -1,4 +1,4 @@
-import {Component, ElementRef, forwardRef, Input, OnInit, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, ElementRef, forwardRef, Input, OnInit, ViewChild} from '@angular/core';
 import {ControlValueAccessor, NG_VALUE_ACCESSOR} from "@angular/forms";
 import {SelectInputOption} from "@app/shared/interface/select-input-option.interface";
 import {SvgBaseIcon} from "@app/core/components/svg-base-icon";
@@ -7,6 +7,7 @@ import {DomSanitizer} from "@angular/platform-browser";
 import {BehaviorSubject, map} from "rxjs";
 import {CalendarWindowStateEnum} from "@app/shared/input-calendar/enums/calendar-window-state.enum";
 import {selectOptionAnimation} from "@app/shared/select/select-option-animation/select-option-animation";
+import {CalendarWindowService} from "@app/shared/input-calendar/service/calendar-window.service";
 
 @Component({
   selector: 'app-select',
@@ -19,7 +20,7 @@ import {selectOptionAnimation} from "@app/shared/select/select-option-animation/
     multi: true
   }]
 })
-export class SelectComponent extends SvgBaseIcon implements ControlValueAccessor, OnInit {
+export class SelectComponent extends SvgBaseIcon implements ControlValueAccessor, OnInit, AfterViewInit {
 
   @ViewChild('arrow') openSelectList!: ElementRef;
 
@@ -34,12 +35,18 @@ export class SelectComponent extends SvgBaseIcon implements ControlValueAccessor
   public selectState$: BehaviorSubject<string> = new BehaviorSubject<string>(this.selectStateEnum.CLOSE)
 
   constructor(public override matIconRegistry: MatIconRegistry,
-              public override domSanitizer: DomSanitizer) {
+              public override domSanitizer: DomSanitizer,
+              private service: CalendarWindowService,
+              private elementRef: ElementRef) {
     super(matIconRegistry, domSanitizer);
   }
 
   ngOnInit(): void {
     this.options.next(this.filteredOptions.getValue())
+  }
+
+  ngAfterViewInit(): void {
+    this.closeCalendarWhenClickedOutside()
   }
 
   onChange = (value: any) => {
@@ -53,10 +60,12 @@ export class SelectComponent extends SvgBaseIcon implements ControlValueAccessor
   }
 
   writeValue(obj: any): void {
+    this.selectValue = obj
   }
 
   public selectedValue(selected: string): void {
     this.selectValue = selected;
+    this.onChange(selected)
   }
 
   public onModelChange(): void {
@@ -72,11 +81,13 @@ export class SelectComponent extends SvgBaseIcon implements ControlValueAccessor
             }
           }
           return filterOption;
-        })).subscribe((s) => this.options.next(s))
+        })).subscribe((s) => {
+        this.options.next(s);
+        this.onChange(this.options.getValue())
+      })
     } else {
-      this.options.next(this.filteredOptions.getValue())
+      this.options.next(this.filteredOptions.getValue());
     }
-
   }
 
   public openSelect(): void {
@@ -87,6 +98,14 @@ export class SelectComponent extends SvgBaseIcon implements ControlValueAccessor
       this.rotateArrow = this.rotate;
     }
     this.selectState$.next(this.selectState$.getValue() === this.selectStateEnum.CLOSE ? this.selectStateEnum.OPEN : this.selectStateEnum.CLOSE)
+  }
+
+  private closeCalendarWhenClickedOutside(): void {
+    this.service.closeModalWhenClickedOutside(this.elementRef.nativeElement).subscribe((isOutsideClick: boolean) => {
+      if (!isOutsideClick) {
+        this.selectState$.next(this.selectStateEnum.CLOSE);
+      }
+    })
   }
 
 }

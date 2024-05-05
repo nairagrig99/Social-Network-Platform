@@ -1,18 +1,19 @@
 import {FormGroup, ValidationErrors} from "@angular/forms";
+import {AuthUserInterface} from "@auth/interface/auth-user.interface";
+
+const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 export function customAuthValidator(group: FormGroup): ValidationErrors | null {
 
-  const regExp = /^[a-zA-Z0-9_]{3,30}$/;
+  const regExpUserName = /^[a-zA-Z0-9_]{3,30}$/;
 
   const password = group.get('password')?.value;
   const re_password = group.get('rePassword')?.value;
   const name = group.get('name')?.value;
   const surname = group.get('surname')?.value;
   const email = group.get('email')?.value;
-  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
   const controls = group.controls;
-
 
   for (const nameKey in controls) {
     if (controls[nameKey].value === '') {
@@ -25,20 +26,33 @@ export function customAuthValidator(group: FormGroup): ValidationErrors | null {
     return {passwordMismatch: 'Passwords do not match'};
   }
 
-  if (!regExp.test(name)) {
+  if (!regExpUserName.test(name)) {
     return {invalidUserName: 'user name is not correct'};
   }
 
-  if (!regExp.test(surname)) {
+  if (!regExpUserName.test(surname)) {
     return {invalidSurName: 'surname is not correct'};
   }
 
+  if (Array.isArray(isUserExist)) {
+    for (const value of isUserExist) {
+      isEmailCreated(value, group, email);
+    }
+  } else {
+    isEmailCreated(isUserExist, group, email);
+  }
 
-  if (isUserExist.hasOwnProperty('email') && isUserExist.email === email) {
+  return null;
+}
+
+function isEmailCreated(isUserExist: AuthUserInterface,
+                               group: FormGroup,
+                               email: string): {} | null {
+
+  if (isUserExist.email === email) {
     return {existUser: 'User is Already Exist'};
   } else if (!emailRegex.test(email) && group.get('email')?.dirty) {
     return {existUser: 'Invalid Email'};
   }
-
-  return null;
+  return null
 }

@@ -19,6 +19,10 @@ export abstract class SvgBaseIcon {
     this.matIconRegistry?.addSvgIcon(
       'arrow',
       this.domSanitizer.bypassSecurityTrustResourceUrl('assets/svg/arrow.svg')
+    );
+    this.matIconRegistry?.addSvgIcon(
+      'eye',
+      this.domSanitizer.bypassSecurityTrustResourceUrl('assets/svg/password-eye.svg')
     )
   }
 

@@ -5,14 +5,19 @@
     }
   </div>
   <input class="custom-field_input"
-         type="text"
+         [type]="type"
          [placeholder]="placeholder"
          [(ngModel)]="model"
          (ngModelChange)="onModelChange()"
   >
-  @if(error){
+
+  <div class="custom-field_input-password" *ngIf="isPsw">
+    <mat-icon svgIcon="eye" (click)="showPassword()"></mat-icon>
+  </div>
+
+  @if (error) {
     <div class="custom-field_errorMsg">
-      {{error | titlecase}}
+      {{ error | titlecase }}
       <p class="custom-field_errorMsg_triangle-down"></p>
     </div>
   }
