@@ -1,0 +1,16 @@
+@import "shared/style/all";
+
+.menu {
+  @include flex-row;
+
+  &-side {
+    width: 220px;
+    border-right: 1px solid;
+    height: 100vh;
+    //position: fixed;
+  }
+
+  &-content-side {
+
+  }
+}

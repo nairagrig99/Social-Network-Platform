@@ -1,0 +1,28 @@
+<header class="header">
+  <app-search></app-search>
+
+  <div class="header-global-feed">
+    <app-global-feed
+      [userInfo]="userItem"
+    ></app-global-feed>
+  </div>
+
+  <div class="header-profile-side">
+    <div class="header-profile-chat">
+      <app-chat
+        [userInfo]="userItem"
+      ></app-chat>
+    </div>
+    <div class="header-profile-notification">
+      <app-notification
+        [userInfo]="userItem"
+      ></app-notification>
+    </div>
+    <div class="header-profile-user">
+      <app-user-profile
+        [isShowName]="true"
+      ></app-user-profile>
+    </div>
+  </div>
+
+</header>

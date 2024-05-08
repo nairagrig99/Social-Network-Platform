@@ -1,0 +1,19 @@
+@import "shared/style/all";
+
+.header {
+  padding: 10px;
+  border: 1px solid black;
+  @include flex-row-justify(space-between);
+
+  &-profile {
+    width: 35px;
+    height: 35px;
+    border-radius: 50px;
+    background-color: black;
+
+    &-side {
+      @include flex-row-align-center;
+      gap: 15px;
+    }
+  }
+}

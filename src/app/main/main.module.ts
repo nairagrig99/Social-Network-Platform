@@ -2,11 +2,18 @@ import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {RouterModule, Routes} from "@angular/router";
 import {MainComponent} from "./main.component";
+import {CoreModule} from "@app/core/core.module";
 
 const route: Routes = [
   {
     path: '',
-    component: MainComponent
+    component: MainComponent,
+    children: [
+      {
+        path: 'feed',
+        loadChildren: () => import('./feed/feed.module').then((module) => module.FeedModule)
+      }
+    ]
   }
 ]
 
@@ -14,7 +21,8 @@ const route: Routes = [
   declarations: [MainComponent],
   imports: [
     CommonModule,
-    RouterModule.forChild(route)
+    RouterModule.forChild(route),
+    CoreModule
   ]
 })
 export class MainModule {

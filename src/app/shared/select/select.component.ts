@@ -1,13 +1,12 @@
 import {AfterViewInit, Component, ElementRef, forwardRef, Input, OnInit, ViewChild} from '@angular/core';
 import {ControlValueAccessor, NG_VALUE_ACCESSOR} from "@angular/forms";
 import {SelectInputOption} from "@app/shared/interface/select-input-option.interface";
-import {SvgBaseIcon} from "@app/core/components/svg-base-icon";
-import {MatIconRegistry} from "@angular/material/icon";
-import {DomSanitizer} from "@angular/platform-browser";
+
 import {BehaviorSubject, map} from "rxjs";
-import {CalendarWindowStateEnum} from "@app/shared/input-calendar/enums/calendar-window-state.enum";
+import {ToggleStateEnum} from "@app/shared/enums/toogle-state.enum";
 import {selectOptionAnimation} from "@app/shared/select/select-option-animation/select-option-animation";
 import {CalendarWindowService} from "@app/shared/input-calendar/service/calendar-window.service";
+import {SvgIcon} from "@app/shared/input-calendar/input-calendar-window/base-mixin";
 
 @Component({
   selector: 'app-select',
@@ -20,25 +19,27 @@ import {CalendarWindowService} from "@app/shared/input-calendar/service/calendar
     multi: true
   }]
 })
-export class SelectComponent extends SvgBaseIcon implements ControlValueAccessor, OnInit, AfterViewInit {
+export class SelectComponent extends SvgIcon(class  {
+
+}) implements ControlValueAccessor, OnInit, AfterViewInit {
 
   @ViewChild('arrow') openSelectList!: ElementRef;
 
   @Input() placeholder!: string;
+  @Input() isSearch: boolean = true;
   @Input() filteredOptions: BehaviorSubject<SelectInputOption> = new BehaviorSubject<SelectInputOption>({});
   public options: BehaviorSubject<SelectInputOption> = new BehaviorSubject<SelectInputOption>({});
   private rotate: number = 180;
   private rotateArrow: number = this.rotate;
 
   public selectValue!: string;
-  public selectStateEnum = CalendarWindowStateEnum;
+  public selectStateEnum = ToggleStateEnum;
   public selectState$: BehaviorSubject<string> = new BehaviorSubject<string>(this.selectStateEnum.CLOSE)
 
-  constructor(public override matIconRegistry: MatIconRegistry,
-              public override domSanitizer: DomSanitizer,
-              private service: CalendarWindowService,
+  constructor(private service: CalendarWindowService,
               private elementRef: ElementRef) {
-    super(matIconRegistry, domSanitizer);
+    super();
+    this.svgIconShow('arrow');
   }
 
   ngOnInit(): void {
@@ -69,7 +70,7 @@ export class SelectComponent extends SvgBaseIcon implements ControlValueAccessor
   }
 
   public onModelChange(): void {
-    if (this.selectValue.length > 2) {
+    if (this.selectValue.length > 2 && this.isSearch) {
       this.filteredOptions.pipe(
         map((option: any) => {
           const filterOption: any = {}
@@ -108,5 +109,6 @@ export class SelectComponent extends SvgBaseIcon implements ControlValueAccessor
     })
   }
 
+  protected readonly length = length;
 }
 

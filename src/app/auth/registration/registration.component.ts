@@ -6,6 +6,7 @@ import {customAuthValidator} from "@auth/validator/custom-auth-validator";
 import {BehaviorSubject, Observable, of, ReplaySubject} from "rxjs";
 import {SelectInputOption} from "@app/shared/interface/select-input-option.interface";
 import {AuthUserInterface} from "@auth/interface/auth-user.interface";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-registration',
@@ -21,6 +22,7 @@ export class RegistrationComponent implements OnInit {
   });
 
   constructor(private formBuilder: FormBuilder,
+              private router: Router,
               private formControlService: FormControlService,
               private authService: AuthService) {
   }
@@ -47,9 +49,12 @@ export class RegistrationComponent implements OnInit {
   public registerUser(): void {
     if (this.registerForm.valid) {
       const authUserList = JSON.parse(localStorage.getItem('signUp') || '[]');
+      setTimeout(() => {
+        this.router.navigate(['/auth/login']).then(() => {
+          this.authService.signUpUser(authUserList.length ? [...authUserList, this.registerForm.value] : [this.registerForm.value]);
+        })
+      }, 3000)
 
-      this.authService.signUpUser(authUserList.length ? [...authUserList, this.registerForm.value] : [this.registerForm.value]);
-      this.removeControlValue();
     }
   }
 

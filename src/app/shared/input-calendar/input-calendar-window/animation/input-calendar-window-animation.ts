@@ -14,6 +14,7 @@ export const inputCalendarWindowAnimation = [
         padding: '12px',
         top: '5px',
         opacity: 1,
+        backgroundColor: '#F3EAD2',
         display: 'block'
       })),
     state('close',

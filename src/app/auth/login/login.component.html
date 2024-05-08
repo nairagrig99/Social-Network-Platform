@@ -16,6 +16,9 @@
         [formControl]="control('password')"
       >
       </app-input>
+      <div class="error" *ngIf="loginForm.hasError('invalidUser')">
+       <p>Invalid Email Or Password</p>
+      </div>
       <div class="login_section_registration">
         <a [routerLink]="'/auth/registration'">sign up</a>
       </div>

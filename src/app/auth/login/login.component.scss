@@ -1,4 +1,4 @@
-@import "../../shared/style/all";
+@import "shared/style/all";
 
 section {
   .login {
@@ -9,12 +9,14 @@ section {
     align-items: center;
 
     &_section {
-      @include flex-row-column-justify(center);
+      @include flex-row-column-justify(space-between);
+      background-color: $main-color;
       box-shadow: -1px 4px 10px 10px #a08766;
       width: 437px;
       gap: 10px;
       padding: 15px 25px 15px 0;
-      height: fit-content;
+      height: 310px;
+      position: relative;
 
       header {
         color: $title-color;
@@ -33,6 +35,14 @@ section {
         }
       }
     }
+  }
+
+  .error {
+    color: red;
+    margin: 0 !important;
+    padding: 15px 20px;
+    position: absolute;
+    bottom: 77px;
   }
 
   @media screen and (max-width: $breakpoint-sm) {

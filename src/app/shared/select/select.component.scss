@@ -24,6 +24,12 @@
     }
   }
 
+  &-expectForSearch {
+    @include input;
+    height: 18px;
+    color: black;
+  }
+
   &_option {
     position: absolute;
     width: 270px;

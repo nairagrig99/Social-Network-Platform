@@ -1,8 +1,6 @@
 import {Component, forwardRef, Input} from '@angular/core';
 import {ControlValueAccessor, NG_VALUE_ACCESSOR} from "@angular/forms";
-import {SvgBaseIcon} from "@app/core/components/svg-base-icon";
-import {MatIconRegistry} from "@angular/material/icon";
-import {DomSanitizer} from "@angular/platform-browser";
+import {SvgIcon} from "@app/shared/input-calendar/input-calendar-window/base-mixin";
 
 @Component({
   selector: 'app-input',
@@ -16,7 +14,7 @@ import {DomSanitizer} from "@angular/platform-browser";
     },
   ],
 })
-export class InputComponent extends SvgBaseIcon implements ControlValueAccessor {
+export class InputComponent extends SvgIcon(class{}) implements ControlValueAccessor {
   @Input() type: string = 'text';
   @Input() label!: string;
   @Input() error!: string;
@@ -25,9 +23,9 @@ export class InputComponent extends SvgBaseIcon implements ControlValueAccessor 
 
   public model!: string;
 
-  constructor(public override matIconRegistry: MatIconRegistry,
-              public override domSanitizer: DomSanitizer) {
-    super(matIconRegistry, domSanitizer);
+  constructor() {
+    super();
+    this.svgIconShow('eye')
   }
 
   onChange = (value: any) => {

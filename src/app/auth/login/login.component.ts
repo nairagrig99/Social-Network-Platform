@@ -1,6 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {FormControlService} from "@app/shared/services/form-control.service";
+import {AuthService} from "@auth/service/auth.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-login',
@@ -12,6 +14,8 @@ export class LoginComponent implements OnInit {
   public loginForm!: FormGroup;
 
   constructor(private formBuilder: FormBuilder,
+              private authService: AuthService,
+              private route: Router,
               private formControlService: FormControlService) {
   }
 
@@ -31,5 +35,16 @@ export class LoginComponent implements OnInit {
   }
 
   public loginUser() {
+    const getAllRegisteredUsersList = this.authService.getAllUserListFromLocaleToStorage();
+
+    for (const item of getAllRegisteredUsersList) {
+      if (item.email === this.loginForm.get('login')?.value && item.password === this.loginForm.get('password')?.value) {
+        this.authService.signInUser(item)
+        this.route.navigate(['/main/feed']);
+      } else {
+        this.loginForm.setErrors({invalidUser: true})
+      }
+    }
   }
+
 }

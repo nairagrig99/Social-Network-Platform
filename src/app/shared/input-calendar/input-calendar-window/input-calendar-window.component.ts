@@ -1,9 +1,7 @@
 import {
   Component,
-  EventEmitter,
   OnDestroy,
-  OnInit,
-  Output
+  OnInit
 } from '@angular/core';
 import {BehaviorSubject, combineLatest, ReplaySubject, takeUntil} from "rxjs";
 import {MatIconRegistry} from "@angular/material/icon";
@@ -40,11 +38,10 @@ export class InputCalendarWindowComponent extends UnsubscribeMixin(SvgIcon(class
   public readonly weeks: string[] = weeks;
 
   constructor(
-    public override matIconRegistry: MatIconRegistry,
-    public override domSanitizer: DomSanitizer,
     public calendarWindowService: CalendarWindowService) {
-    super(matIconRegistry, domSanitizer);
-    this.svgIconShow()
+    super();
+    this.svgIconShow('left')
+    this.svgIconShow('right')
   }
 
   ngOnInit(): void {

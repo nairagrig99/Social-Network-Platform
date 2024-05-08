@@ -1,0 +1,19 @@
+<div class="user-profile">
+  <div class="user-profile-image" (click)="openUserSettings()">
+    <img ngSrc="assets/default-avatar.png" width="40" height="40" priority>
+    @if (!isShowName) {
+      <div class="user-profile-info">
+        <span class="user-profile-info-name">{{ userInfo.name }}</span>
+        <span class="user-profile-info-surname">{{ userInfo.surname }}</span>
+      </div>
+    }
+  </div>
+
+  <div class="user-profile-settings" [@toggleSettings]="toggleState$ | async">
+    <ul>
+      <li (click)="logOut()">log Out</li>
+      <li>Settings</li>
+    </ul>
+  </div>
+
+</div>

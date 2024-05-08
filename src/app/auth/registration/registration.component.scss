@@ -1,8 +1,10 @@
-@import "../../shared/style/_all";
+@import "shared/style/_all";
 
 section {
+
   .register {
     @include flex-row-justify(center);
+
     width: 100%;
     height: 100vh;
     flex-direction: row;
@@ -10,6 +12,7 @@ section {
 
     &_section {
       @include flex-row-column-justify(center);
+      background-color: $main-color;
       box-shadow: -1px 4px 10px 10px #a08766;
       width: 600px;
       padding: 15px 25px 15px 0;
