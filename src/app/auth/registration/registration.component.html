@@ -25,6 +25,7 @@
 
         <app-select
           [placeholder]="'Gender'"
+          [isSearch]="false"
           [filteredOptions]="gender"
           [formControl]="control('gender')"
         >
@@ -64,7 +65,7 @@
       </div>
       <app-button
         [label]="'Sign Up'"
-        [disabled]="false"
+        [disabled]="registerForm.invalid"
         (buttonClick)="registerUser()"
       ></app-button>
     </div>

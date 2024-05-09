@@ -7,4 +7,6 @@ export interface AuthUserInterface {
   email: string;
   password: string;
   rePassword: string
+  headerImage?: string,
+  allUserImage?: []
 }

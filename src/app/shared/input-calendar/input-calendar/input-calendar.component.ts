@@ -1,6 +1,6 @@
 import {AfterViewInit, Component, ElementRef, forwardRef, OnInit} from '@angular/core';
 import {BehaviorSubject} from "rxjs";
-import {CalendarWindowStateEnum} from "@app/shared/input-calendar/enums/calendar-window-state.enum";
+import {ToggleStateEnum} from "@app/shared/enums/toogle-state.enum";
 import {
   inputCalendarWindowAnimation
 } from "@app/shared/input-calendar/input-calendar-window/animation/input-calendar-window-animation";
@@ -21,7 +21,7 @@ import {ControlValueAccessor, FormBuilder, FormGroup, NG_VALUE_ACCESSOR} from "@
 export class InputCalendarComponent implements OnInit, AfterViewInit, ControlValueAccessor {
 
   public inputValue$: BehaviorSubject<string> = new BehaviorSubject('');
-  public calendarWindowStateEnum = CalendarWindowStateEnum;
+  public calendarWindowStateEnum = ToggleStateEnum;
   public calendarState$ = new BehaviorSubject(this.calendarWindowStateEnum.CLOSE);
 
   public inputCalendarForm!: FormGroup;
@@ -93,7 +93,7 @@ export class InputCalendarComponent implements OnInit, AfterViewInit, ControlVal
   private closeCalendarWhenClickedOutside(): void {
     this.calendarService.closeModalWhenClickedOutside(this.elementRef.nativeElement).subscribe((isOutsideClick: boolean) => {
       if (!isOutsideClick) {
-        this.hideCalendarWindow()
+        // this.hideCalendarWindow()
       }
     })
   }

@@ -1,7 +1,7 @@
 import {FormGroup, ValidationErrors} from "@angular/forms";
 import {AuthUserInterface} from "@auth/interface/auth-user.interface";
 
-const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+const emailRegex =/\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}\b/;
 
 export function customAuthValidator(group: FormGroup): ValidationErrors | null {
 
@@ -36,18 +36,18 @@ export function customAuthValidator(group: FormGroup): ValidationErrors | null {
 
   if (Array.isArray(isUserExist)) {
     for (const value of isUserExist) {
-      isEmailCreated(value, group, email);
+      return isEmailCreated(value, group, email);
     }
   } else {
-    isEmailCreated(isUserExist, group, email);
+    return isEmailCreated(isUserExist, group, email);
   }
 
   return null;
 }
 
 function isEmailCreated(isUserExist: AuthUserInterface,
-                               group: FormGroup,
-                               email: string): {} | null {
+                        group: FormGroup,
+                        email: string): {} | null {
 
   if (isUserExist.email === email) {
     return {existUser: 'User is Already Exist'};

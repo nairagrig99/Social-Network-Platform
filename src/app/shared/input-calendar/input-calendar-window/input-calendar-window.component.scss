@@ -11,13 +11,15 @@
         grid-template-rows: auto repeat(5, 40px);
         align-items: center;
         text-align: center;
+        color: black;
 
         &_day {
           padding: 9px 0;
           border-radius: 50px;
+          color: black;
 
           &:hover {
-            background: $background-color;
+            background: $main-color;
           }
         }
       }
@@ -30,6 +32,7 @@
     &-yearAndMonth {
       @include flex-row-justify(space-evenly);
       cursor: pointer;
+      color: black;
 
       &_years, &_month {
         @include flex-row-align-center;
@@ -45,7 +48,7 @@
       flex-wrap: wrap;
       justify-content: center;
       overflow-y: scroll;
-      height: 177px;
+      height: 235px;
       padding-left: 14px;
       cursor: pointer;
 
@@ -54,7 +57,7 @@
 
         &:hover {
           border-radius: 50px;
-          background-color: $background-color;
+          background-color: $main-color;
         }
       }
     }
@@ -71,7 +74,7 @@
 
         &:hover {
           border-radius: 50px;
-          background-color: $background-color;
+          background-color: $main-color;
         }
       }
     }
@@ -79,7 +82,7 @@
 }
 
 .isCurrentMonthDay {
-  color: grey;
+  color: #aeaaaa;
 }
 
 .weekEndDays {
@@ -87,5 +90,5 @@
 }
 
 .selectedDay {
-  background-color: $background-color;
+  background-color: $main-color;
 }

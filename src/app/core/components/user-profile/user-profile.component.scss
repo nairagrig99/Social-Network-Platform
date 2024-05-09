@@ -1,0 +1,26 @@
+@import 'shared/style/all';
+
+.user-profile {
+  &-image {
+    @include flex-row-align-center;
+    position: relative;
+    gap: 15px;
+
+    img {
+      border-radius: 50px;
+    }
+  }
+
+  &-info {
+    &-name {
+      margin-right: 5px;
+    }
+  }
+
+  &-settings {
+    ul li {
+      list-style-type: none;
+      cursor: pointer;
+    }
+  }
+}

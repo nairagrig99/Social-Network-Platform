@@ -1,11 +1,21 @@
 <div class="custom_select">
   <div>
     <div class="custom_select_input">
-      <input
-        [(ngModel)]="selectValue"
-        (ngModelChange)="onModelChange()"
-        [placeholder]="placeholder"
-        name="country">
+      @if (isSearch) {
+        <input
+          *ngIf="isSearch"
+          [(ngModel)]="selectValue"
+          (ngModelChange)="onModelChange()"
+          [placeholder]="placeholder"
+          name="country">
+      } @else {
+        <div class="custom_select-expectForSearch"
+             placeholderDir
+             [placeholderDirective]="selectValue?.length ? '' : placeholder"
+        >
+           <p name="country">{{ selectValue }}</p>
+        </div>
+      }
       <div class="custom_select_input-arrow" #arrow>
         <mat-icon (click)="openSelect()" svgIcon="arrow"></mat-icon>
       </div>
@@ -15,7 +25,7 @@
          [@toggleSelectOption]="selectState$ | async">
       <ul>
         @for (option of options | async | keyvalue; track option) {
-          <option  [value]="option.value" (click)="selectedValue(option.value)">{{ option.value }}</option>
+          <option [value]="option.value" (click)="selectedValue(option.value)">{{ option.value }}</option>
         }
       </ul>
     </div>
