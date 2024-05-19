@@ -13,20 +13,20 @@ import {CalendarWindowService} from "@app/shared/input-calendar/service/calendar
 import {SelectComponent} from './select/select.component';
 import {CustomSelectHeightDirective} from "@app/shared/directives/custom-select-height.directive";
 import {PlaceholderDirective} from "@app/shared/directives/placeholder.directive";
-import { SearchComponent } from './search/search.component';
+import {SearchComponent} from './search/search.component';
 
 @NgModule({
   declarations: [
     InputComponent,
-    ButtonComponent,
     DateFormatPipe,
+    ButtonComponent,
+    SearchComponent,
     SelectComponent,
     DateMaskDirective,
     PlaceholderDirective,
     InputCalendarComponent,
     CustomSelectHeightDirective,
     InputCalendarWindowComponent,
-    SearchComponent,
   ],
   imports: [
     CommonModule,

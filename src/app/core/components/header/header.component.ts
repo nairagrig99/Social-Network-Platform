@@ -10,6 +10,7 @@ import {AuthUserInterface} from "@auth/interface/auth-user.interface";
 })
 export class HeaderComponent implements OnInit {
   public userItem!: AuthUserInterface;
+  public allUser!: AuthUserInterface[];
 
   constructor(private store: AuthService,
               private route: Router) {
@@ -17,5 +18,6 @@ export class HeaderComponent implements OnInit {
 
   ngOnInit(): void {
     this.userItem = this.store.getSignInUser();
+    this.allUser = this.store.getAllUserListFromLocaleToStorage();
   }
 }

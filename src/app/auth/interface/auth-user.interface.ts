@@ -1,4 +1,6 @@
 export interface AuthUserInterface {
+  id: string;
+  userID: string;
   name: string;
   surname: string;
   birthOfDate: string;

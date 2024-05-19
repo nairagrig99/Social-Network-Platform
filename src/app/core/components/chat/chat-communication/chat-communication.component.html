@@ -1,0 +1,34 @@
+<div class="chat">
+  <div class="chat__communication">
+    @if (user$ | async; as user) {
+      <div class="chat__communication-userinfo">
+        <img ngSrc="assets/default-avatar.png" width="30" height="30" alt="">
+        <span>{{ user.name }}</span>
+        <span>{{ user.surname }}</span>
+      </div>
+      <div class="chat__communication-message" #scroll>
+        @for (msg of messageList; track msg) {
+          @if (msg.mine) {
+            <div class="chat__communication-message__currentUser">
+              <span class="chat__communication-message__currentUser-name">{{ currentUser.name }}</span>
+              <p class="chat__communication-message__currentUser-message">{{ msg.message }}</p>
+            </div>
+          } @else if (msg.message?.length) {
+            <div class="chat__communication-message__selectedUser">
+              <span class="chat__communication-message__selectedUser-name">{{ user.name }}</span>
+              <p class="chat__communication-message__selectedUser-message">{{ msg.message }}</p>
+            </div>
+          }
+        }
+
+      </div>
+      <div class="chat__communication-writeMsg">
+        <textarea type="text" [(ngModel)]="message"></textarea>
+        <button (click)="sendMessage(user.userID)">Send</button>
+        <!--    <app-button [label]="'Send'"></app-button>-->
+      </div>
+    }
+  </div>
+</div>
+
+

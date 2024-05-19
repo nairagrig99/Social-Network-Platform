@@ -49,13 +49,21 @@ export class RegistrationComponent implements OnInit {
   public registerUser(): void {
     if (this.registerForm.valid) {
       const authUserList = JSON.parse(localStorage.getItem('signUp') || '[]');
-      setTimeout(() => {
-        this.router.navigate(['/auth/login']).then(() => {
-          this.authService.signUpUser(authUserList.length ? [...authUserList, this.registerForm.value] : [this.registerForm.value]);
-        })
-      }, 3000)
 
+      this.router.navigate(['/auth/login']).then(() => {
+
+        const mapperUser = {
+          ...this.registerForm.value,
+          id: this.createUniqId()
+        }
+        
+        this.authService.signUpUser(authUserList.length ? [...authUserList, mapperUser] : [mapperUser]);
+      })
     }
+  }
+
+  private createUniqId(): string {
+    return Date.now().toString(36) + Math.random().toString(36).substr(2, 9);
   }
 
   private removeControlValue(): void {
@@ -91,3 +99,5 @@ export class RegistrationComponent implements OnInit {
   }
 
 }
+
+// this.createUniqId()

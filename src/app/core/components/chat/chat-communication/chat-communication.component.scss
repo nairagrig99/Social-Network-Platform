@@ -1,0 +1,72 @@
+@import "shared/style/all";
+
+.chat {
+  width: 300px;
+  height: 380px;
+  background: white;
+  border: 1px solid $main-color;
+  border-radius: 8px;
+  position: fixed;
+  bottom: 0;
+  right: 141px;
+
+  &__communication {
+    &-userinfo {
+      @include flex-row-align-center;
+      gap: 6px;
+      padding: 10px;
+      border-bottom: 1px solid;
+    }
+
+    &-message {
+      height: 260px;
+      padding: 10px;
+      overflow-y: scroll;
+      word-break: break-all;
+
+      &__currentUser {
+        float: right;
+
+        &-message {
+          background: blue;
+          padding: 10px;
+          min-width: 150px;
+          width: 200px;
+          border-radius: 11px 11px 0 11px;
+        }
+      }
+
+      &__selectedUser {
+        float: left;
+
+        &-message {
+          background: lightgrey;
+          padding: 10px;
+          min-width: 150px;
+          width: 200px;
+          border-radius: 11px 11px 11px 0;
+        }
+      }
+    }
+
+    &-writeMsg {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      textarea {
+        width: 250px;
+        height: 42px;
+        resize: none;
+      }
+
+      button {
+        border: none;
+        padding: 9px 19px;
+        border-radius: 8px;
+        background: blue;
+        color: white;
+      }
+    }
+  }
+}

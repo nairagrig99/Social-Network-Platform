@@ -1,0 +1,27 @@
+@import "shared/style/all";
+
+.name {
+  color: red;
+}
+
+.chat {
+  position: relative;
+
+  &-container {
+    position: absolute;
+    z-index: 999;
+    background: #d9ba70;
+    right: 0;
+    width: 250px;
+    height: 300px;
+    border-radius: 15px;
+
+    &__usersList {
+      img {
+        border-radius: 50px;
+      }
+      @include flex-row-align-center;
+      gap: 15px;
+    }
+  }
+}

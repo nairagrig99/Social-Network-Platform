@@ -1,1 +1,23 @@
-<mat-icon svgIcon="chat"></mat-icon>
+<div class="chat">
+  <mat-icon svgIcon="chat" (click)="openChat()"></mat-icon>
+
+  @if (isNotificationChatOpen) {
+    <div class="chat-container">
+      @for (user of allUsersList; track user) {
+        <div class="chat-container__usersList" >
+          <div><img ngSrc="assets/default-avatar.png" (click)="communicateWithUser(user)" width="50" alt="" height="50" priority></div>
+          <span class="chat-container-name">{{ user.name }}</span>
+
+        </div>
+      }
+    </div>
+  }
+
+  @if (isChatOpen) {
+    <app-chat-communication
+      [userCommunication]="selectedUserForCommunication"
+      [currentUser]="userInfo"
+    ></app-chat-communication>
+  }
+</div>
+
