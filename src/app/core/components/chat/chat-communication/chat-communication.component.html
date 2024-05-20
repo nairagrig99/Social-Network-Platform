@@ -23,7 +23,9 @@
 
       </div>
       <div class="chat__communication-writeMsg">
-        <textarea type="text" [(ngModel)]="message"></textarea>
+        <textarea type="text" [(ngModel)]="message"
+                  (keydown.enter)="sendMessage(user.userID)"
+        ></textarea>
         <button (click)="sendMessage(user.userID)">Send</button>
         <!--    <app-button [label]="'Send'"></app-button>-->
       </div>
