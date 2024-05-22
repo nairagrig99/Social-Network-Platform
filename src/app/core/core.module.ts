@@ -8,9 +8,9 @@ import {GlobalFeedComponent} from './components/global-feed/global-feed.componen
 import {NotificationComponent} from './components/notification/notification.component';
 import {UserProfileComponent} from './components/user-profile/user-profile.component';
 import {MatIcon} from "@angular/material/icon";
-import { UserPersonalCabinetComponent } from '@main/user-personal-cabinet/user-personal-cabinet.component';
 import {FormsModule} from "@angular/forms";
 import { ChatCommunicationComponent } from './components/chat/chat-communication/chat-communication.component';
+import {UserPersonalCabinetComponent} from "@main/components/user-personal-cabinet/user-personal-cabinet.component";
 
 @NgModule({
   declarations: [

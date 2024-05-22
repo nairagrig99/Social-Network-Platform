@@ -11,7 +11,7 @@ const route: Routes = [
     children: [
       {
         path: 'feed',
-        loadChildren: () => import('./feed/feed.module').then((module) => module.FeedModule)
+        loadChildren: () => import('./components/feed/feed.module').then((module) => module.FeedModule)
       }
     ]
   }
