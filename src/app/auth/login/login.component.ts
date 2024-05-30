@@ -34,13 +34,13 @@ export class LoginComponent implements OnInit {
     });
   }
 
-  public loginUser() {
+  public loginUser(): void {
     const getAllRegisteredUsersList = this.authService.getAllUserListFromLocaleToStorage();
 
     for (const item of getAllRegisteredUsersList) {
       if (item.email === this.loginForm.get('login')?.value && item.password === this.loginForm.get('password')?.value) {
         this.authService.signInUser(item)
-        this.route.navigate(['/main/feed']);
+        this.route.navigate(['/main']);
       } else {
         this.loginForm.setErrors({invalidUser: true})
       }

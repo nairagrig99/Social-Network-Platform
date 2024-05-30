@@ -10,7 +10,7 @@ export class StoryComponent {
   public imageUrl!: string | ArrayBuffer | null;
 
   public selectImage(event: any) {
-    console.log('ev',)
+
     const file: File = event.target.files[0];
     const reader: FileReader = new FileReader();
 

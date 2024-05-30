@@ -1,9 +1,17 @@
 <header class="header">
-  <app-search></app-search>
+
+  @if (outletName !== namedOutlet.SEARCH) {
+    <app-custom-search
+      (findUserName)="openSearchPanel()"
+      [formControl]="control(searchForm,'search')"
+    >
+    </app-custom-search>
+  }
 
   <div class="header-global-feed">
     <app-global-feed
       [userInfo]="userItem"
+      (click)="showFeed()"
     ></app-global-feed>
   </div>
 

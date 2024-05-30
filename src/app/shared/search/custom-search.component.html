@@ -1,0 +1,11 @@
+<div class="search">
+
+  <input
+    class="search-input"
+    type="text"
+    [(ngModel)]="inputValue"
+    (keydown.enter)="openSearchPanel()"
+    (ngModelChange)="onChange(inputValue)"
+  >
+  <mat-icon (click)="openSearchPanel()" svgIcon="search"></mat-icon>
+</div>

@@ -3,7 +3,6 @@ import {CommonModule, NgOptimizedImage} from '@angular/common';
 import {FeedComponent} from './feed/feed.component';
 import {RouterModule, Routes} from "@angular/router";
 import { StoryComponent } from './story/story.component';
-import * as path from "path";
 import {MatIcon} from "@angular/material/icon";
 
 const routes: Routes = [{

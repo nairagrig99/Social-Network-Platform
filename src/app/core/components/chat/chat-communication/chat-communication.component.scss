@@ -9,8 +9,10 @@
   position: fixed;
   bottom: 0;
   right: 141px;
+  z-index: 1;
 
   &__communication {
+
     &-userinfo {
       @include flex-row-align-center;
       gap: 6px;
