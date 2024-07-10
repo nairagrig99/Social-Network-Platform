@@ -1,7 +1,7 @@
 <div class="user-story-list">
-  <mat-icon (click)="changeStory('prev')"
+  <mat-icon (click)="changeStory(directionEnum.PREV)"
             svgIcon="left"></mat-icon>
-  @for (img of currentImage$ | async; track img;) {
+  @for (img of currentImage$ | async; track img; ) {
     <img [src]="img"
          alt=""
          width="170px"
@@ -9,6 +9,6 @@
          priority>
   }
 
-  <mat-icon (click)="changeStory('next')"
+  <mat-icon (click)="changeStory(directionEnum.NEXT)"
             svgIcon="right"></mat-icon>
 </div>
