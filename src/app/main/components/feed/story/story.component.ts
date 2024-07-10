@@ -8,9 +8,10 @@ import {StoryDialogComponent} from "@main/components/feed/story/story-dialog/sto
   styleUrl: './story.component.scss'
 })
 export class StoryComponent {
-  constructor(public dialog: MatDialog) {}
+  constructor(public dialog: MatDialog) {
+  }
 
-  public imageUrl: any[]=[];
+  public imageUrl: any[] = [];
 
   public selectImage(event: any) {
 
@@ -19,15 +20,14 @@ export class StoryComponent {
 
     reader.onload = () => {
       this.imageUrl.push(reader.result)
-      // console.log(' this.imageUrl', this.imageUrl)
     }
     reader.readAsDataURL(file);
   }
 
-  public openStory() {
+  public openStory(): void {
     this.dialog.open(StoryDialogComponent, {
       data: {
-        imageUrl:this.imageUrl
+        imageUrl: this.imageUrl
       },
     });
   }

@@ -2,6 +2,7 @@ import {Component, Inject, OnInit} from '@angular/core';
 import {MAT_DIALOG_DATA} from "@angular/material/dialog";
 import {SvgIcon} from "@app/shared/input-calendar/input-calendar-window/base-mixin";
 import {BehaviorSubject, map, combineLatest, Observable, of} from "rxjs";
+import {DirectionEnum} from "@app/shared/enums/direction-enum";
 
 
 interface DialogData {
@@ -15,6 +16,9 @@ interface DialogData {
 })
 export class StoryDialogComponent extends SvgIcon(class {
 }) implements OnInit {
+
+  public directionEnum = DirectionEnum;
+
   public currentImage$!: Observable<unknown[]>;
   private currentImageIndex$: BehaviorSubject<number> = new BehaviorSubject<number>(0);
 
@@ -25,11 +29,15 @@ export class StoryDialogComponent extends SvgIcon(class {
   }
 
   public changeStory(currentImage?: string): void {
-    let imageIndex = this.currentImageIndex$.getValue();
-    if (imageIndex > 0 || imageIndex < this.data.imageUrl.length) {
-      this.currentImageIndex$.next(
-        currentImage === 'next' ? ++imageIndex : --imageIndex)
-    }
+    let imageIndex: number = this.currentImageIndex$.getValue();
+
+    const lastImage = this.data.imageUrl.length - 1;
+
+    this.currentImageIndex$.next(
+      currentImage === this.directionEnum.NEXT && imageIndex < this.data.imageUrl.length - 1 ? ++imageIndex :
+        currentImage === this.directionEnum.PREV && imageIndex > 0 ? --imageIndex :
+          currentImage === this.directionEnum.PREV && imageIndex === 0 ? lastImage : 0)
+
   }
 
   ngOnInit(): void {
