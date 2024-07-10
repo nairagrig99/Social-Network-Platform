@@ -17,7 +17,7 @@ export class ChatComponent extends SvgIcon(class {
 
   constructor() {
     super();
-    this.svgIconShow('chat')
+    this.svgIconShow('chat');
   }
 
   public openChat(): void {

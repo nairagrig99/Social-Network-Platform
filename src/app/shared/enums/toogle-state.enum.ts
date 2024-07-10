@@ -1,4 +1,6 @@
 export enum ToggleStateEnum {
   OPEN = 'open',
-  CLOSE = 'close'
+  CLOSE = 'close',
+  UP = 'up',
+  DOWN = 'down'
 }

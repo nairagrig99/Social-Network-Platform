@@ -1,0 +1,66 @@
+.search {
+  text-align: left;
+  width: 700px;
+  margin: 25px auto;
+
+  &-input {
+    width: 700px;
+    margin: 15px auto;
+    position: relative;
+
+    input {
+      width: 100%;
+      border-radius: 16px;
+      padding: 8px;
+      margin-top: 15px;
+      outline: none;
+      border: 1px solid;
+    }
+
+    mat-icon {
+      position: absolute;
+      top: 20px;
+      right: 0;
+    }
+  }
+
+  &-list {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+
+    &-userBlock {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      border: 1px solid grey;
+      padding: 11px;
+      border-radius: 10px;
+    }
+
+    &-image {
+      img {
+        border-radius: 50px;
+      }
+    }
+
+    &-userInfo {
+      &_name {
+        margin-right: 5px;
+      }
+
+      &-addFriend {
+        margin-top: 5px;
+
+        button {
+          border-radius: 5px;
+          border: none;
+          background: #d49139;
+          padding: 7px;
+          color: white;
+        }
+      }
+    }
+  }
+
+}

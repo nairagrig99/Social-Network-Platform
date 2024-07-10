@@ -9,8 +9,10 @@
   position: fixed;
   bottom: 0;
   right: 141px;
+  z-index: 1;
 
   &__communication {
+
     &-userinfo {
       @include flex-row-align-center;
       gap: 6px;
@@ -68,5 +70,12 @@
         color: white;
       }
     }
+  }
+
+  &__close {
+    position: absolute;
+    top: -25px;
+    right: 0;
+    color:$main-color
   }
 }

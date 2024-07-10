@@ -1,0 +1,42 @@
+@import "shared/style/all";
+
+.user-story {
+
+  @include flex-row;
+  gap: 18px;
+
+  &-block {
+    position: relative;
+    height: 300px;
+    background: white;
+    width: 170px;
+    border-radius: 26px;
+    border: 1px solid;
+  }
+
+  mat-icon {
+    color: $main-color;
+    cursor: pointer;
+    position: absolute;
+    top: 80%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 50px;
+    border: 1px solid wheat;
+    padding: 12px;
+
+    &:hover {
+      background: $main-color;
+      color: white;
+    }
+  }
+
+  input {
+    visibility: hidden;
+  }
+
+  img {
+    object-fit: cover;
+    border-radius: 26px;
+  }
+}

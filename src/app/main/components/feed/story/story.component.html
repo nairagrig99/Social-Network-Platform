@@ -1,0 +1,27 @@
+<section class="user-story">
+  <div class="user-story-block">
+    <label for="img">
+      <mat-icon>add</mat-icon>
+    </label>
+    <br>
+    <input type="file"
+           (change)="selectImage($event)"
+           id="img">
+  </div>
+  <div class="user-story-block-currentUserStory">
+    @if (imageUrl?.length) {
+
+        <img
+          [src]="imageUrl[0]"
+          (click)="openStory()"
+          alt=""
+          width="170px"
+          height="300px"
+          priority>
+
+    }
+  </div>
+  <div class="user-story-friendsStory">
+
+  </div>
+</section>

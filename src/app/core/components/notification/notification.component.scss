@@ -1,0 +1,17 @@
+@import "shared/style/all";
+
+.notification {
+  position: relative;
+
+  &-count {
+    position: absolute;
+    top: -7px;
+    left: 12px;
+    width: 18px;
+    color: white;
+    height: 18px;
+    text-align: center;
+    border-radius: 50px;
+    background: $main-color;
+  }
+}

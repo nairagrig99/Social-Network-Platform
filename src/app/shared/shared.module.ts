@@ -13,14 +13,15 @@ import {CalendarWindowService} from "@app/shared/input-calendar/service/calendar
 import {SelectComponent} from './select/select.component';
 import {CustomSelectHeightDirective} from "@app/shared/directives/custom-select-height.directive";
 import {PlaceholderDirective} from "@app/shared/directives/placeholder.directive";
-import {SearchComponent} from './search/search.component';
+import {CustomSearchComponent} from './search/custom-search.component';
+import {RouterLink} from "@angular/router";
 
 @NgModule({
   declarations: [
     InputComponent,
     DateFormatPipe,
     ButtonComponent,
-    SearchComponent,
+    CustomSearchComponent,
     SelectComponent,
     DateMaskDirective,
     PlaceholderDirective,
@@ -28,21 +29,22 @@ import {SearchComponent} from './search/search.component';
     CustomSelectHeightDirective,
     InputCalendarWindowComponent,
   ],
-  imports: [
-    CommonModule,
-    FormsModule,
-    NgOptimizedImage,
-    ReactiveFormsModule,
-    MatIconModule,
-    MatButton
-  ],
+    imports: [
+        CommonModule,
+        FormsModule,
+        NgOptimizedImage,
+        ReactiveFormsModule,
+        MatIconModule,
+        MatButton,
+        RouterLink
+    ],
   exports: [
     InputComponent,
     ButtonComponent,
     InputCalendarComponent,
     InputCalendarWindowComponent,
     SelectComponent,
-    SearchComponent
+    CustomSearchComponent
   ],
   providers: [CalendarWindowService]
 })

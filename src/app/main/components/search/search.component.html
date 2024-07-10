@@ -1,0 +1,36 @@
+<section class="search">
+  <div class="search-input">
+    <input
+      type="text"
+      [(ngModel)]="inputValue"
+      (keydown.enter)="search()"
+    >
+    <mat-icon
+      (click)="search()"
+      svgIcon="search"></mat-icon>
+  </div>
+
+  <div class="search-list">
+    @if (searchList?.length) {
+      @for (user of searchList; track user) {
+        <div class="search-list-userBlock">
+          <div class="search-list-image">
+            <img ngSrc="assets/default-avatar.png" width="50" height="50" priority alt="">
+          </div>
+          <div class="search-list-userInfo">
+            <span class="search-list-userInfo_name">{{ user.name }}</span>
+            <span class="search-list-userInfo_surname">{{ user.surname }}</span>
+            <div class="search-list-userInfo-addFriend">
+              <button (click)="sendFriendRequest(user.id)">Add Friend</button>
+            </div>
+          </div>
+        </div>
+      }
+    } @else {
+      <span>User not found</span>
+    }
+
+  </div>
+</section>
+
+

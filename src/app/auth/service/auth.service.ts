@@ -17,6 +17,24 @@ export class AuthService {
     localStorage.setItem('signIn', JSON.stringify(registerUser) || '{}');
   }
 
+  public updateSignInUserAndSameUserFromAllUserList(updatedUser: AuthUserInterface): void {
+    let allUser: AuthUserInterface[] = this.getAllUserListFromLocaleToStorage();
+    allUser = allUser.map((user) => {
+      if (user.id === updatedUser.id) {
+        return {
+          ...user,
+          notifications: updatedUser.notifications
+        }
+      }
+      return user
+
+    })
+    console.log('allUser', allUser)
+    this.signUpUser(allUser);
+
+    this.signInUser({...updatedUser, notifications: updatedUser.notifications})
+  }
+
   public getSignInUser(): AuthUserInterface {
     return JSON.parse(localStorage.getItem('signIn') || '{}');
   }
@@ -26,7 +44,8 @@ export class AuthService {
   }
 
   public logOutUser(): void {
-    localStorage.removeItem('signIn')
+    localStorage.removeItem('signIn');
   }
+
 }
 
