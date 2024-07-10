@@ -9,8 +9,16 @@
            id="img">
   </div>
   <div class="user-story-block-currentUserStory">
-    @if (imageUrl) {
-      <img [src]="imageUrl" alt="" width="170px" height="300px" priority>
+    @if (imageUrl?.length) {
+
+        <img
+          [src]="imageUrl[0]"
+          (click)="openStory()"
+          alt=""
+          width="170px"
+          height="300px"
+          priority>
+
     }
   </div>
   <div class="user-story-friendsStory">

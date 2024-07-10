@@ -1,4 +1,6 @@
 import {Component} from '@angular/core';
+import {MatDialog} from "@angular/material/dialog";
+import {StoryDialogComponent} from "@main/components/feed/story/story-dialog/story-dialog.component";
 
 @Component({
   selector: 'app-story',
@@ -6,8 +8,9 @@ import {Component} from '@angular/core';
   styleUrl: './story.component.scss'
 })
 export class StoryComponent {
+  constructor(public dialog: MatDialog) {}
 
-  public imageUrl!: string | ArrayBuffer | null;
+  public imageUrl: any[]=[];
 
   public selectImage(event: any) {
 
@@ -15,9 +18,18 @@ export class StoryComponent {
     const reader: FileReader = new FileReader();
 
     reader.onload = () => {
-      this.imageUrl = reader.result
+      this.imageUrl.push(reader.result)
+      // console.log(' this.imageUrl', this.imageUrl)
     }
     reader.readAsDataURL(file);
+  }
+
+  public openStory() {
+    this.dialog.open(StoryDialogComponent, {
+      data: {
+        imageUrl:this.imageUrl
+      },
+    });
   }
 
 }

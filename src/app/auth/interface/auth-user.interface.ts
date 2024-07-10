@@ -8,7 +8,10 @@ export interface AuthUserInterface {
   country: string;
   email: string;
   password: string;
-  rePassword: string
-  headerImage?: string,
-  allUserImage?: []
+  rePassword: string;
+  headerImage?: string;
+  allUserImage?: [];
+  messages?: any;
+  notifications?: any[];
+  friendList?: [];
 }

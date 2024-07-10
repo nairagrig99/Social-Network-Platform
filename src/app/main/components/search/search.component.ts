@@ -3,6 +3,7 @@ import {SvgIcon} from "@app/shared/input-calendar/input-calendar-window/base-mix
 import {Router} from "@angular/router";
 import {AuthService} from "@auth/service/auth.service";
 import {NavigationStateInterface} from "@main/interface/navigation-state-interface";
+import {WebsocketService} from "@app/core/components/notification/web-socket-service";
 
 @Component({
   selector: 'app-search',
@@ -16,7 +17,8 @@ export class SearchComponent extends SvgIcon(class {
   public searchList!: any;
 
   constructor(private router: Router,
-              private store: AuthService) {
+              private store: AuthService,
+              private websocketService: WebsocketService) {
     super();
     this.initState();
     this.svgIconShow('search');
@@ -47,6 +49,15 @@ export class SearchComponent extends SvgIcon(class {
           || trimUserSurname.toLowerCase().includes(trimValue);
       });
     }
+  }
+
+  sendFriendRequest(userId: number): void {
+    const request = {
+      type: 'friend-request',
+      senderName: this.store.getSignInUser().name,
+      recipientId: userId
+    };
+    this.websocketService.sendMessage(request);
   }
 }
 

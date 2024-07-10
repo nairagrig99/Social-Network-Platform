@@ -1,1 +1,7 @@
-<mat-icon svgIcon="notification"></mat-icon>
+<div class="notification">
+  <mat-icon svgIcon="notification"></mat-icon>
+  <div class="notification-count">{{ (notification$ | async)?.length }}</div>
+  <div>
+
+  </div>
+</div>

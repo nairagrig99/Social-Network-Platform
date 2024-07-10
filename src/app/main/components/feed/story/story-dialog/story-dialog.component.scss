@@ -1,0 +1,18 @@
+@import "shared/style/all";
+
+.user-story-list {
+  @include flex-row;
+  align-items: center;
+  justify-content: space-between;
+  padding: 15px;
+  gap: 16px;
+}
+
+mat-icon {
+  background: black;
+  padding: 5px;
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

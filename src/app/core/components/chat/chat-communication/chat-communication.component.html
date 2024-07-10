@@ -1,7 +1,7 @@
-<div class="chat">
+<div class="chat" [@chatAnimation]="chatAppState">
   <div class="chat__communication">
     @if (user$ | async; as user) {
-      <div class="chat__communication-userinfo">
+      <div class="chat__communication-userinfo" (click)="closeChat()">
         <img ngSrc="assets/default-avatar.png" width="30" height="30" alt="">
         <span>{{ user.name }}</span>
         <span>{{ user.surname }}</span>
@@ -27,9 +27,15 @@
                   (keydown.enter)="sendMessage(user.userID)"
         ></textarea>
         <button (click)="sendMessage(user.userID)">Send</button>
-        <!--    <app-button [label]="'Send'"></app-button>-->
+        <!--<app-button [label]="'Send'"></app-button>-->
       </div>
     }
+  </div>
+  <div class="chat__close"
+       #close
+       (click)="closeChat()">
+    <mat-icon
+      svgIcon="arrow">arrow_upward</mat-icon>
   </div>
 </div>
 

@@ -71,4 +71,11 @@
       }
     }
   }
+
+  &__close {
+    position: absolute;
+    top: -25px;
+    right: 0;
+    color:$main-color
+  }
 }

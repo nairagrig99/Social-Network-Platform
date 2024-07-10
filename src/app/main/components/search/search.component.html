@@ -21,7 +21,7 @@
             <span class="search-list-userInfo_name">{{ user.name }}</span>
             <span class="search-list-userInfo_surname">{{ user.surname }}</span>
             <div class="search-list-userInfo-addFriend">
-              <button>Add Friend</button>
+              <button (click)="sendFriendRequest(user.id)">Add Friend</button>
             </div>
           </div>
         </div>
